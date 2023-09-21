@@ -11,31 +11,67 @@ export type Routes = {
       ok: boolean
     }
   }
-  "/things": {
-    route: "/things"
-    method: "GET" | "POST"
-    queryParams: {}
-    jsonBody: {
-      type: "superthing" | "lamething"
-      status: "online" | "offline"
+  "/images/view": {
+    route: "/images/view"
+    method: "GET"
+    queryParams: {
+      image_id: string
     }
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: {}
+  }
+  "/v1/device_models/list": {
+    route: "/v1/device_models/list"
+    method: "GET"
+    queryParams: {}
+    jsonBody: {}
     commonParams: {}
     formData: {}
     jsonResponse: {
-      thing?:
-        | {
-            thingId: string
-            type: "superthing" | "lamething"
-            status: "online" | "offline"
-          }
-        | undefined
-      things?:
-        | {
-            thingId: string
-            type: "superthing" | "lamething"
-            status: "online" | "offline"
-          }[]
-        | undefined
+      device_models: {
+        device_model_id: string
+        manufacturer: {
+          manufacturer_id: string
+          display_name: string
+          logo?:
+            | {
+                url: string
+                width: number
+                height: number
+              }
+            | undefined
+          integration: "stable" | "beta" | "planned" | "unsupported"
+          is_connect_webview_supported: boolean
+          requires_seam_support_to_add_account: boolean
+        }
+        is_device_supported: boolean
+        display_name: string
+        product_url: string
+        main_connection_type: "wifi" | "zwave" | "zigbee" | "unknown"
+        main_category: "smartlock" | "thermostat" | "noise_sensor"
+        aesthetic_variants: {
+          slug: string
+          display_name: string
+          primary_color_hex?: string | undefined
+          manufacturer_sku: string
+          front_image?:
+            | {
+                url: string
+                width: number
+                height: number
+              }
+            | undefined
+          back_image?:
+            | {
+                url: string
+                width: number
+                height: number
+              }
+            | undefined
+        }[]
+      }[]
     }
   }
 }
