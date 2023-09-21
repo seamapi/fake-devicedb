@@ -13,6 +13,7 @@ export const createDatabase = (): ZustandDatabase => {
 const initializer = immer<Database>((set, get) => ({
   _id: 0,
   things: [],
+  vercel_protection_secret: "abc123",
 
   addThing(thing) {
     set((state) => {

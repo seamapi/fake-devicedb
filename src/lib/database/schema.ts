@@ -5,6 +5,7 @@ import type { Thing, ThingInitializer } from "lib/models.ts"
 export interface DatabaseState {
   _id: number
   things: Thing[]
+  vercel_protection_secret: string
 }
 
 export interface DatabaseMethods {

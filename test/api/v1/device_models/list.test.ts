@@ -28,3 +28,15 @@ test("GET /v1/device_models/list (image URL is correct with X-Forwarded-Seam-Bas
     "https://example.com/devicedb/images/view?image_id=00000000-0000-0000-0000-000000000000",
   )
 })
+
+test("GET /v1/device_models/list (throws 401 for wrong bypass secret)", async (t: ExecutionContext) => {
+  const { axios } = await getTestServer(t)
+  const { status } = await axios.get("/v1/device_models/list", {
+    headers: {
+      "x-vercel-protection-bypass": "wrong",
+    },
+    validateStatus: () => true,
+  })
+
+  t.is(status, 401)
+})

@@ -1,7 +1,7 @@
 import { createWithRouteSpec } from "nextlove"
 
-import withApiKey from "./with-api-key.ts"
 import withDb from "./with-db.ts"
+import withVercelProtectionSecret from "./with-vercel-protection-secret.ts"
 
 export const withRouteSpec = createWithRouteSpec({
   apiName: "DeviceDb fake",
@@ -9,7 +9,7 @@ export const withRouteSpec = createWithRouteSpec({
   shouldValidateGetRequestBody: false,
   globalMiddlewares: [withDb],
   authMiddlewareMap: {
-    api_key: withApiKey,
+    vercel_protection_secret: withVercelProtectionSecret,
   },
 } as const)
 
