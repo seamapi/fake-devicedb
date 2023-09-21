@@ -41,6 +41,7 @@
           "400": { "description": "Bad Request" },
           "401": { "description": "Unauthorized" }
         },
+        "security": [{ "vercel_protection_secret": [] }],
         "parameters": [
           {
             "name": "image_id",
@@ -191,13 +192,14 @@
           "400": { "description": "Bad Request" },
           "401": { "description": "Unauthorized" }
         },
+        "security": [{ "vercel_protection_secret": [] }],
         "tags": [],
         "operationId": "v1DeviceModelsListGet"
       }
     }
   },
   "components": {
-    "securitySchemes": { "api_key": { "type": "apiKey" } },
+    "securitySchemes": { "vercel_protection_secret": { "type": "apiKey" } },
     "schemas": {}
   }
 }
