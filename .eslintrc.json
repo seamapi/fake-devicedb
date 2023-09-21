@@ -27,7 +27,7 @@
           ["^\\u0000"],
           ["^node:"],
           ["^@?\\w"],
-          ["@seamapi/fake-template"],
+          ["@seamapi/fake-devicedb"],
           ["^fixtures/", "^lib/", "^nsm", "^pages"],
           ["^"],
           ["^\\."]

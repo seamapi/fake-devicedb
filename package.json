@@ -1,7 +1,7 @@
 {
-  "name": "@seamapi/fake-template",
-  "version": "2.0.0",
-  "description": "Package skeleton for a fake.",
+  "name": "@seamapi/fake-devicedb",
+  "version": "0.0.0",
+  "description": "Fake for devicedb",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -14,9 +14,9 @@
   "keywords": [
     "node"
   ],
-  "homepage": "https://github.com/seamapi/fake-template",
-  "bugs": "https://github.com/seamapi/fake-template/issues",
-  "repository": "seamapi/fake-template",
+  "homepage": "https://github.com/seamapi/fake-devicedb",
+  "bugs": "https://github.com/seamapi/fake-devicedb/issues",
+  "repository": "seamapi/fake-devicedb",
   "license": "SEE LICENSE IN LICENSE.txt",
   "author": {
     "name": "Seam Labs, Inc.",

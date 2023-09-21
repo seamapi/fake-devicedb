@@ -3,7 +3,7 @@ import type { Axios } from "axios"
 import type { NextApiRequest } from "next"
 import type { TypedAxios } from "typed-axios-instance"
 
-import type { Database, Routes } from "@seamapi/fake-template"
+import type { Database, Routes } from "@seamapi/fake-devicedb"
 
 import nsm from "nsm/get-server-fixture.ts"
 import type { NextApiHandler, NextApiResponse } from "nsm/types/nextjs.ts"

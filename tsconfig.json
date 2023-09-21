@@ -26,7 +26,7 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./",
     "paths": {
-      "@seamapi/fake-template": ["./src/index.ts"],
+      "@seamapi/fake-devicedb": ["./src/index.ts"],
       "fixtures/*": ["./test/fixtures/*"],
       "lib/*": ["./src/lib/*"],
       "nsm/*": ["./.nsm/*"],

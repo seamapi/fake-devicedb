@@ -1,6 +1,6 @@
 {
   "openapi": "3.0.0",
-  "info": { "title": "Fake Template", "version": "1.0.0" },
+  "info": { "title": "DeviceDb fake", "version": "1.0.0" },
   "servers": [{ "url": "https://example.com" }],
   "tags": [],
   "paths": {

@@ -1,79 +1,12 @@
-# Fake Template
+# DeviceDb fake
 
-[![GitHub Actions](https://github.com/seamapi/fake-template/actions/workflows/check.yml/badge.svg)](https://github.com/seamapi/fake-template/actions/workflows/check.yml)
+[![GitHub Actions](https://github.com/seamapi/fake-devicedb/actions/workflows/check.yml/badge.svg)](https://github.com/seamapi/fake-devicedb/actions/workflows/check.yml)
 
-Package skeleton for a fake.
+Fake for devicedb
 
 ## Description
 
-TODO: Describe fake here.
-
-## Bootstrapping a new fake
-
-1. [Trigger a makenew workflow from this repository][makenew workflow]. 🚀
-   - Provide a value for each required input.
-   - There are no defaults.
-   - Example values are shown in parentheses.
-2. When the workflow completes, clone your new repo and start coding!
-
-[makenew workflow]: https://github.com/seamapi/fake-template/actions/workflows/makenew.yml
-
-### Updating from this skeleton
-
-If you want to pull in future updates from this skeleton,
-you can fetch and merge in changes from this repository.
-
-Add this as a new remote with
-
-```
-$ git remote add makenew git@github.com:seamapi/fake-template.git
-```
-
-You can then fetch and merge changes with
-
-```
-$ git fetch --no-tags makenew
-$ git merge makenew/main
-```
-
-## Third Party API Fakes
-
-Third party APIs are simulated in testing and staging environments using fakes.
-Fakes:
-
-- Mimic functionality of the third party API and internal state management without needing any physical devices.
-- Enable reliable local testing.
-- Enable staging environments for customers.
-- Allow comparing API responses to look for discrepancies, reducing maintenance burden.
-
-Read more about the difference between fakes, mocks and stubs in [this StackOverflow post](https://stackoverflow.com/a/346440/559475).
-
-## Implementing a Fake
-
-The fake will be automatically published to Github Packages as an NPM module, using npm-semantic-release.
-
-This template uses the following:
-
-- NextJS and nextlove for API routes.
-- Zustand for state management.
-- AVA for tests.
-
-The fakes should implement the following interfaces:
-
-- Start one or more HTTP servers on a provided port.
-- Create or manipulate internal state (without using the API directly) to configure test fixtures,
-  e.g., create a user, create an API key, create a sample device.
-- Save and load internal state.
-
-## Fake Checklist
-
-- [ ] Fill in package name at `lib/logger.ts` and `pages/api/health.ts`
-- [ ] Insomnia Export JSON File in `research/insomnia_config.json`
-- [ ] Has README with instructions: how it works, links to relevant third party documentation or blogs, feature list, etc.
-- [ ] Implements minimal set of endpoints needed to poll devices and perform actions.
-- [ ] Added to [Seam Connect fake config map](https://github.com/seamapi/seam-connect/blob/main/lib/sandbox/fake-config-map.ts).
-- [ ] Sample DB data imported into [seam-connect's sample-scenarios folder](https://github.com/seamapi/seam-connect/tree/main/lib/sandbox/sample-scenarios).
-- [ ] Any environment variables, e.g., `MANUFACTURER_BASE_URL` added to seam-connect README and `getWorkspaceEnv` file.
+TODO
 
 ## Installation
 
@@ -87,7 +20,7 @@ by adding the line below to your project's `.npmrc`,
 and installing the package with
 
 ```
-$ npm install @seamapi/fake-template
+$ npm install @seamapi/fake-devicedb
 ```
 
 [npm]: https://www.npmjs.com/
@@ -97,8 +30,8 @@ $ npm install @seamapi/fake-template
 ### Quickstart
 
 ```
-$ git clone https://github.com/seamapi/fake-template.git
-$ cd fake-template
+$ git clone https://github.com/seamapi/fake-devicedb.git
+$ cd fake-devicedb
 $ nvm install
 $ npm install
 $ npm run test:watch
@@ -118,10 +51,10 @@ The [source code] is hosted on GitHub.
 Clone the project with
 
 ```
-$ git clone git@github.com:seamapi/fake-template.git
+$ git clone git@github.com:seamapi/fake-devicedb.git
 ```
 
-[source code]: https://github.com/seamapi/fake-template
+[source code]: https://github.com/seamapi/fake-devicedb
 
 ### Requirements
 
@@ -176,7 +109,7 @@ $ gh workflow run version.yml --raw-field version=<version>
 
 [GitHub CLI]: https://cli.github.com/
 [npm-version]: https://docs.npmjs.com/cli/version
-[version workflow_dispatch on GitHub Actions]: https://github.com/seamapi/fake-template/actions?query=workflow%3Aversion
+[version workflow_dispatch on GitHub Actions]: https://github.com/seamapi/fake-devicedb/actions?query=workflow%3Aversion
 
 ## GitHub Actions
 

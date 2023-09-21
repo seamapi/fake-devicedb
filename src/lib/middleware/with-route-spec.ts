@@ -4,7 +4,7 @@ import withApiKey from "./with-api-key.ts"
 import withDb from "./with-db.ts"
 
 export const withRouteSpec = createWithRouteSpec({
-  apiName: "Fake Template",
+  apiName: "DeviceDb fake",
   productionServerUrl: "https://example.com",
   shouldValidateGetRequestBody: false,
   globalMiddlewares: [withDb],

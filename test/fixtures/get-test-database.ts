@@ -5,7 +5,7 @@ import {
   type Database,
   type Seed,
   seedDatabase,
-} from "@seamapi/fake-template"
+} from "@seamapi/fake-devicedb"
 
 export interface DatabaseFixture<TSeed = true> {
   db: Database

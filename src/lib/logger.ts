@@ -1,3 +1,3 @@
 import { getLogger } from "@seamapi/logger"
 
-export default getLogger("fake-template")
+export default getLogger("fake-devicedb")
