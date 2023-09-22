@@ -6,8 +6,7 @@ run-name: Semantic Release from ${{ github.ref_name }}
 on:
   push:
     branches:
-      # - "**"
-      - "TODO: Enable once version 1.0.0 is released."
+      - "**"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}
