@@ -38,6 +38,7 @@ export default withRouteSpec({
         main_connection_type: "wifi",
         main_category: "smartlock",
         aesthetic_variants: [
+          // @ts-expect-error TODO Fix this
           {
             slug: "grey",
             display_name: "Grey",
