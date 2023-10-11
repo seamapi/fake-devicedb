@@ -1,23 +1,18 @@
-# DeviceDb fake
+# Fake Devicedb
 
+[![npm](https://img.shields.io/npm/v/@seamapi/fake-devicedb.svg)](https://www.npmjs.com/package/@seamapi/fake-devicedb)
 [![GitHub Actions](https://github.com/seamapi/fake-devicedb/actions/workflows/check.yml/badge.svg)](https://github.com/seamapi/fake-devicedb/actions/workflows/check.yml)
 
-Fake for devicedb
+Fake for Seam Devicedb. Use with Fake Seam Connect.
 
 ## Description
 
-TODO
+This module allows you to spin up an in-memory server
+for the Seam Devicedb.
 
 ## Installation
 
-Add this as a dependency to your project using [npm]
-by adding the line below to your project's `.npmrc`,
-
-```
-@seamapi:registry=https://npm.pkg.github.com
-```
-
-and installing the package with
+Add this as a dependency to your project using [npm] with
 
 ```
 $ npm install @seamapi/fake-devicedb
@@ -73,8 +68,7 @@ Set the active version for each shell session with
 $ nvm use
 ```
 
-Ensure you are authenticated with the [GitHub Packages npm registry],
-then install the development dependencies with
+Install the development dependencies with
 
 ```
 $ npm install
@@ -84,7 +78,6 @@ $ npm install
 [Node.js debugging]: https://nodejs.org/en/docs/guides/debugging-getting-started/
 [npm]: https://www.npmjs.com/
 [nvm]: https://github.com/creationix/nvm
-[GitHub Packages npm registry]: https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#authenticating-to-github-packages
 
 ### Publishing
 
@@ -117,6 +110,7 @@ _GitHub Actions should already be configured: this section is for reference only
 
 The following repository secrets must be set on [GitHub Actions]:
 
+- `NPM_TOKEN`: npm token for installing and publishing packages.
 - `GH_TOKEN`: A personal access token for the bot user with
   `packages:write` and `contents:write` permission.
 - `GIT_USER_NAME`: The GitHub bot user's real name.

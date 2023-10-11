@@ -12,8 +12,6 @@ jobs:
   build:
     name: Build
     uses: ./.github/workflows/_build.yml
-    secrets:
-      node_auth_token: ${{ secrets.GH_TOKEN }}
   release:
     name: GitHub Releases
     runs-on: ubuntu-latest
@@ -45,6 +43,15 @@ jobs:
           prerelease: ${{ contains(github.ref_name, '-') }}
           files: "*.tgz"
           body_path: ${{ github.workspace }}/${{ steps.changelog.outputs.outfile }}
+  npm:
+    name: npm
+    uses: ./.github/workflows/_publish.yml
+    needs: build
+    with:
+      artifact_name: ${{ needs.build.outputs.artifact_name }}
+      registry_url: https://registry.npmjs.org
+    secrets:
+      registry_token: ${{ secrets.NPM_TOKEN }}
   github:
     name: GitHub Packages
     uses: ./.github/workflows/_publish.yml
@@ -57,4 +64,3 @@ jobs:
       registry_url: https://npm.pkg.github.com
     secrets:
       registry_token: ${{ secrets.GITHUB_TOKEN }}
-      node_auth_token: ${{ secrets.GH_TOKEN }}
