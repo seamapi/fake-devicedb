@@ -16,9 +16,6 @@ on:
       registry_token:
         description: The package registry token.
         required: true
-      node_auth_token:
-        description: The Node.js auth token.
-        required: true
 
 jobs:
   publish:
@@ -32,7 +29,6 @@ jobs:
         uses: ./.github/actions/setup
         with:
           install_dependencies: "false"
-          node_auth_token: ${{ secrets.node_auth_token }}
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
@@ -44,7 +40,7 @@ jobs:
       - name: Publish
         uses: JS-DevTools/npm-publish@v2
         with:
+          access: public
           token: ${{ secrets.registry_token }}
           registry: ${{ inputs.registry_url }}
           package: ${{ steps.meta.outputs.tgz }}
-          access: restricted

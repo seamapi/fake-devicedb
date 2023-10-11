@@ -31,7 +31,7 @@ package
 .tern-port
 
 # npm config
-# .npmrc
+.npmrc
 
 # Temporary development files
 tmp

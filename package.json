@@ -17,7 +17,7 @@
   "homepage": "https://github.com/seamapi/fake-devicedb",
   "bugs": "https://github.com/seamapi/fake-devicedb/issues",
   "repository": "seamapi/fake-devicedb",
-  "license": "SEE LICENSE IN LICENSE.txt",
+  "license": "MIT",
   "author": {
     "name": "Seam Labs, Inc.",
     "email": "devops@getseam.com"
@@ -69,7 +69,7 @@
     "zustand-hoist": "^1.0.0"
   },
   "devDependencies": {
-    "@seamapi/logger": "^3.2.0",
+    "@seamapi/logger": "^1.9.2",
     "@seamapi/types": "^1.17.2",
     "@tsconfig/next": "^2.0.0",
     "@types/get-pixels": "^3.3.2",

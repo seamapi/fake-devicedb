@@ -2,8 +2,8 @@
 name: Format
 
 on:
-  pull_request:
-    branches:
+  push:
+    branches-ignore:
       - main
   workflow_dispatch: {}
 
@@ -29,8 +29,6 @@ jobs:
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
       - name: Setup
         uses: ./.github/actions/setup
-        with:
-          node_auth_token: ${{ secrets.GH_TOKEN }}
       - name: Format
         run: npm run format
       - name: Commit
