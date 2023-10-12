@@ -47,12 +47,21 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "device_category": { "type": "string" },
+                  "device_category": {
+                    "type": "string",
+                    "enum": [
+                      "smartlock",
+                      "sensor",
+                      "thermostat",
+                      "relay",
+                      "intercom",
+                      "accessory"
+                    ]
+                  },
                   "vercel_protection_bypass_secret": { "type": "string" },
                   "device_db_endpoint": { "type": "string", "format": "uri" }
                 },
                 "required": [
-                  "device_category",
                   "vercel_protection_bypass_secret",
                   "device_db_endpoint"
                 ]

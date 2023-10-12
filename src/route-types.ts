@@ -4,7 +4,16 @@ export type Routes = {
     method: "POST"
     queryParams: {}
     jsonBody: {
-      device_category: string
+      device_category?:
+        | (
+            | "smartlock"
+            | "sensor"
+            | "thermostat"
+            | "relay"
+            | "intercom"
+            | "accessory"
+          )
+        | undefined
       vercel_protection_bypass_secret: string
       device_db_endpoint: string
     }
