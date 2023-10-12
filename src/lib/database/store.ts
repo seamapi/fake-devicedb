@@ -22,7 +22,8 @@ const initializer = immer<Database>((set, get) => ({
   manufacturers: [],
   device_models: [],
   vercel_protection_secret: "abc123",
-  live_seam_connect_endpoint: "https://connect.getseam.com",
+  external_image_proxy_endpoint:
+    "https://connect.getseam.com/internal/devicedb_image_proxy",
 
   addManufacturerFromLiveApi(manufacturer) {
     const { logo, ...rest } = manufacturer
@@ -108,9 +109,9 @@ const initializer = immer<Database>((set, get) => ({
     return device_model
   },
 
-  setLiveSeamConnectEndpoint(endpoint) {
+  setExternalImageProxyEndpoint(endpoint) {
     set((state) => {
-      state.live_seam_connect_endpoint = endpoint
+      state.external_image_proxy_endpoint = endpoint
     })
   },
 

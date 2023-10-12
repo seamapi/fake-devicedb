@@ -10,13 +10,13 @@ export default withRouteSpec({
   methods: ["GET"],
   queryParams: z.object({
     image_id: z.string().uuid(),
-    _fake_live_seam_connect_endpoint: z.string().url().optional(),
+    _fake_external_image_proxy_endpoint: z.string().url().optional(),
   }),
 } as const)(async (req, res) => {
-  const { image_id, _fake_live_seam_connect_endpoint } = req.query
-  if (_fake_live_seam_connect_endpoint) {
+  const { image_id, _fake_external_image_proxy_endpoint } = req.query
+  if (_fake_external_image_proxy_endpoint) {
     const { status, headers, data } = await axios.get(
-      `${_fake_live_seam_connect_endpoint}/internal/devicedb_image_proxy`,
+      _fake_external_image_proxy_endpoint,
       {
         params: {
           image_id,

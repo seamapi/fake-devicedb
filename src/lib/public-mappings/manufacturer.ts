@@ -7,14 +7,14 @@ import { publicMapImageReference } from "./image-reference.ts"
 interface PublicMapManufacturerOptions {
   fake_devicedb_endpoint: string
   manufacturer: StoredManufacturer
-  live_seam_connect_endpoint?: string
+  external_image_proxy_endpoint?: string
   x_forwarded_seam_base_url?: string
 }
 
 export const publicMapManufacturer = ({
   fake_devicedb_endpoint,
   manufacturer,
-  live_seam_connect_endpoint,
+  external_image_proxy_endpoint,
   x_forwarded_seam_base_url,
 }: PublicMapManufacturerOptions): Manufacturer => ({
   manufacturer_id: manufacturer.manufacturer_id,
@@ -23,7 +23,7 @@ export const publicMapManufacturer = ({
     ? publicMapImageReference({
         image: manufacturer.logo,
         fake_devicedb_endpoint,
-        live_seam_connect_endpoint,
+        external_image_proxy_endpoint,
         x_forwarded_seam_base_url,
       })
     : undefined,

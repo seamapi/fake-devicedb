@@ -5,7 +5,7 @@ import type { Database } from "./schema.ts"
 export type Seed = ReturnType<typeof seedDatabase>
 
 export const seedDatabase = (db: Database) => {
-  db.setLiveSeamConnectEndpoint(null)
+  db.setExternalImageProxyEndpoint(null)
 
   const manufacturer = db.addManufacturer({
     manufacturer_id: "00000000-0000-0000-0000-000000000000",

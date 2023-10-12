@@ -7,7 +7,7 @@ export interface DatabaseState {
   manufacturers: StoredManufacturer[]
   device_models: StoredDeviceModelV1[]
   vercel_protection_secret: string
-  live_seam_connect_endpoint: string | null
+  external_image_proxy_endpoint: string | null
 }
 
 export interface DatabaseMethods {
@@ -15,7 +15,7 @@ export interface DatabaseMethods {
   addDeviceModelFromLiveApi: (device_model: DeviceModelV1) => void
   addManufacturer: (manufacturer: StoredManufacturer) => StoredManufacturer
   addDeviceModel: (device_model: StoredDeviceModelV1) => StoredDeviceModelV1
-  setLiveSeamConnectEndpoint: (endpoint: string | null) => void
+  setExternalImageProxyEndpoint: (endpoint: string | null) => void
   update: (t?: number) => void
 }
 

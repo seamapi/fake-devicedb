@@ -26,8 +26,8 @@ export default withRouteSpec({
       return publicMapManufacturer({
         manufacturer,
         fake_devicedb_endpoint: `http://${req.headers.host}`,
-        live_seam_connect_endpoint:
-          req.db.live_seam_connect_endpoint ?? undefined,
+        external_image_proxy_endpoint:
+          req.db.external_image_proxy_endpoint ?? undefined,
         x_forwarded_seam_base_url,
       })
     }),

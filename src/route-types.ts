@@ -29,7 +29,7 @@ export type Routes = {
     method: "GET"
     queryParams: {
       image_id: string
-      _fake_live_seam_connect_endpoint?: string | undefined
+      _fake_external_image_proxy_endpoint?: string | undefined
     }
     jsonBody: {}
     commonParams: {}
