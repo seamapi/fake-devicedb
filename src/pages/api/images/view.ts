@@ -9,8 +9,18 @@ export default withRouteSpec({
   methods: ["GET"],
   queryParams: z.object({
     image_id: z.string().uuid(),
+    _fake_live_seam_connect_endpoint: z.string().url().optional(),
   }),
 } as const)(async (req, res) => {
+  const { image_id, _fake_live_seam_connect_endpoint } = req.query
+  if (_fake_live_seam_connect_endpoint) {
+    res.redirect(
+      307,
+      `${_fake_live_seam_connect_endpoint}/internal/devicedb_image_proxy?image_id=${image_id}`,
+    )
+    return
+  }
+
   if (req.query.image_id !== "00000000-0000-0000-0000-000000000000") {
     throw new NotFoundException({
       type: "image_not_found",

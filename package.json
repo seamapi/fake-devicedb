@@ -70,7 +70,7 @@
   },
   "devDependencies": {
     "@seamapi/logger": "^1.9.2",
-    "@seamapi/types": "^1.17.2",
+    "@seamapi/types": "^1.26.2",
     "@tsconfig/next": "^2.0.0",
     "@types/get-pixels": "^3.3.2",
     "@types/node": "^18.11.18",
@@ -97,7 +97,8 @@
     "prettier": "^3.0.3",
     "tsup": "^7.1.0",
     "tsx": "^3.12.1",
-    "typed-axios-instance": "^2.0.0",
+    "type-fest": "^4.4.0",
+    "typed-axios-instance": "^3.1.0",
     "typescript": "~5.1.0",
     "zod": "^3.21.4",
     "zustand": "^4.3.7",

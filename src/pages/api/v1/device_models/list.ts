@@ -1,60 +1,37 @@
-import { schemas } from "@seamapi/types/devicedb"
-import { z } from "zod"
+import { routes } from "@seamapi/types/devicedb"
 
-import { getFullUrlToFakeResource } from "lib/get-base-url.ts"
 import { withRouteSpec } from "lib/middleware/index.ts"
-import { seam_logo } from "lib/seam_logo.ts"
+import { publicMapDeviceModelV1 } from "lib/public-mappings/device-model-v1.ts"
 
 export default withRouteSpec({
+  ...routes["/api/v1/device_models/list"],
+  methods: ["GET", "POST", "OPTIONS"],
   auth: "vercel_protection_secret",
-  methods: ["GET"],
-  middlewares: [],
-  jsonResponse: z.object({
-    device_models: schemas.device_model_v1.array(),
-  }),
 } as const)(async (req, res) => {
   res.status(200).json({
-    device_models: [
-      {
-        device_model_id: "00000000-0000-0000-0000-000000000000",
-        manufacturer: {
-          manufacturer_id: "00000000-0000-0000-0000-000000000000",
-          display_name: "Seam",
-          logo: {
-            url: getFullUrlToFakeResource(
-              req,
-              "images/view?image_id=00000000-0000-0000-0000-000000000000",
-            ),
-            width: seam_logo.width,
-            height: seam_logo.height,
-          },
-          integration: "stable",
-          is_connect_webview_supported: true,
-          requires_seam_support_to_add_account: false,
-        },
-        is_device_supported: true,
-        display_name: "Smart Lock",
-        product_url: "https://example.com/smart-lock",
-        main_connection_type: "wifi",
-        main_category: "smartlock",
-        aesthetic_variants: [
-          // @ts-expect-error TODO Fix this
-          {
-            slug: "grey",
-            display_name: "Grey",
-            primary_color_hex: "#000000",
-            manufacturer_sku: "123456",
-            front_image: {
-              url: getFullUrlToFakeResource(
-                req,
-                "images/view?image_id=00000000-0000-0000-0000-000000000000",
-              ),
-              width: seam_logo.width,
-              height: seam_logo.height,
-            },
-          },
-        ],
-      },
-    ],
+    device_models: req.db.device_models.map((device_model) => {
+      const manufacturer = req.db.manufacturers.find(
+        (m) => m.manufacturer_id === device_model.manufacturer_id,
+      )
+
+      if (!manufacturer) {
+        throw new Error(
+          `Manufacturer for device model ${device_model.device_model_id} cannot be found`,
+        )
+      }
+
+      const x_forwarded_seam_base_url = req.headers[
+        "x-forwarded-seam-base-url"
+      ] as string | undefined
+
+      return publicMapDeviceModelV1({
+        device_model,
+        manufacturer,
+        fake_devicedb_endpoint: `http://${req.headers.host}`,
+        live_seam_connect_endpoint:
+          req.db.live_seam_connect_endpoint ?? undefined,
+        x_forwarded_seam_base_url,
+      })
+    }),
   })
 })

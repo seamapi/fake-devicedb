@@ -1,4 +1,17 @@
 export type Routes = {
+  "/_fake/populate-from-live-api": {
+    route: "/_fake/populate-from-live-api"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      device_category: string
+      vercel_protection_bypass_secret: string
+      device_db_endpoint: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {}
+  }
   "/health": {
     route: "/health"
     method: "GET"
@@ -16,6 +29,7 @@ export type Routes = {
     method: "GET"
     queryParams: {
       image_id: string
+      _fake_live_seam_connect_endpoint?: string | undefined
     }
     jsonBody: {}
     commonParams: {}
@@ -24,8 +38,25 @@ export type Routes = {
   }
   "/v1/device_models/list": {
     route: "/v1/device_models/list"
-    method: "GET"
-    queryParams: {}
+    method: "GET" | "POST" | "OPTIONS"
+    queryParams: {
+      main_category?:
+        | (
+            | "smartlock"
+            | "sensor"
+            | "thermostat"
+            | "relay"
+            | "intercom"
+            | "accessory"
+          )
+        | undefined
+      manufacturer_id?: string | undefined
+      manufacturer_ids?: string[] | undefined
+      integration_status?:
+        | ("stable" | "beta" | "planned" | "unsupported" | "inquire")
+        | undefined
+      text_search?: string | undefined
+    }
     jsonBody: {}
     commonParams: {}
     formData: {}
