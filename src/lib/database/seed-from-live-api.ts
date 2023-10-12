@@ -1,5 +1,5 @@
 import type { Routes } from "@seamapi/types/devicedb"
-import axios from "axios"
+import type { AxiosInstance } from "axios"
 import type { Simplify } from "type-fest"
 import type { TypedAxios } from "typed-axios-instance"
 
@@ -7,24 +7,17 @@ import type { Database } from "./schema.ts"
 
 interface PopulateFromLiveApiOptions {
   db: Database
-  vercel_protection_bypass_secret: string
-  endpoint: string
+  live_client: AxiosInstance
   device_category: Routes["/v1/device_models/list"]["queryParams"]["main_category"]
 }
 
 export const seedFromLiveApi = async ({
   db,
-  endpoint,
-  vercel_protection_bypass_secret,
+  live_client,
   device_category,
 }: PopulateFromLiveApiOptions) => {
-  const client = axios.create({
-    baseURL: endpoint,
-    headers: {
-      "x-vercel-protection-bypass": vercel_protection_bypass_secret,
-    },
-    // 🤷
-  }) as TypedAxios<Simplify<Routes>>
+  // 🤷
+  const client = live_client as TypedAxios<Simplify<Routes>>
 
   const {
     data: { device_models },

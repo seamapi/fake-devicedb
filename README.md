@@ -21,15 +21,23 @@ Full-text search on real devicedb API (using the `?text_search` parameter) is fa
 This fake can be seeded with data from the live API. To do so, either call `POST /_fake/seed_from_live_api` or use the exported helper:
 
 ```ts
+import axios from "axios"
 import { createDatabase, seedFromLiveApi } from "@seamapi/fake-devicedb"
 
 const db = createDatabase()
 
+// You could create a client that goes through the Seam Connect devicedb proxy instead
+const live_client = axios.create({
+  baseURL: "https://devicedb.seam.tube",
+  headers: {
+    "x-vercel-protection-bypass": "<secret>",
+  },
+})
+
 await seedFromLiveApi({
   db,
-  vercel_protection_bypass_secret: "<secret>",
-  endpoint: "https://devicedb.seam.tube",
   device_category: "smartlock",
+  live_client,
 })
 ```
 

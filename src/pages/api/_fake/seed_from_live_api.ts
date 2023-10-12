@@ -1,3 +1,4 @@
+import axios from "axios"
 import { z } from "zod"
 
 import { seedFromLiveApi } from "lib/database/seed-from-live-api.ts"
@@ -19,11 +20,17 @@ export default withRouteSpec({
     device_category,
   } = req.body
 
+  const live_client = axios.create({
+    baseURL: device_db_endpoint,
+    headers: {
+      "x-vercel-protection-bypass": vercel_protection_bypass_secret,
+    },
+  })
+
   await seedFromLiveApi({
     db: req.db,
     device_category: device_category as any,
-    endpoint: device_db_endpoint,
-    vercel_protection_bypass_secret,
+    live_client,
   })
 
   res.status(200).json({})
