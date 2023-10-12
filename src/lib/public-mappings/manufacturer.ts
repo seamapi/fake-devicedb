@@ -5,26 +5,23 @@ import type { StoredManufacturer } from "lib/models.ts"
 import { publicMapImageReference } from "./image-reference.ts"
 
 interface PublicMapManufacturerOptions {
-  fake_devicedb_endpoint: string
   manufacturer: StoredManufacturer
+  fake_devicedb_base_url: string
   external_image_proxy_endpoint?: string
-  x_forwarded_seam_base_url?: string
 }
 
 export const publicMapManufacturer = ({
-  fake_devicedb_endpoint,
   manufacturer,
+  fake_devicedb_base_url,
   external_image_proxy_endpoint,
-  x_forwarded_seam_base_url,
 }: PublicMapManufacturerOptions): Manufacturer => ({
   manufacturer_id: manufacturer.manufacturer_id,
   display_name: manufacturer.display_name,
   logo: manufacturer.logo
     ? publicMapImageReference({
         image: manufacturer.logo,
-        fake_devicedb_endpoint,
+        fake_devicedb_base_url,
         external_image_proxy_endpoint,
-        x_forwarded_seam_base_url,
       })
     : undefined,
   integration: manufacturer.integration,

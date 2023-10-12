@@ -1,6 +1,7 @@
 import { routes } from "@seamapi/types/devicedb"
 import { NotFoundException } from "nextlove"
 
+import { getBaseUrl } from "lib/get-base-url.ts"
 import { withRouteSpec } from "lib/middleware/index.ts"
 import { publicMapManufacturer } from "lib/public-mappings/manufacturer.ts"
 
@@ -20,17 +21,12 @@ export default withRouteSpec({
     })
   }
 
-  const x_forwarded_seam_base_url = req.headers["x-forwarded-seam-base-url"] as
-    | string
-    | undefined
-
   res.status(200).json({
     manufacturer: publicMapManufacturer({
       manufacturer,
-      fake_devicedb_endpoint: `http://${req.headers.host}`,
+      fake_devicedb_base_url: getBaseUrl(req),
       external_image_proxy_endpoint:
         req.db.external_image_proxy_endpoint ?? undefined,
-      x_forwarded_seam_base_url,
     }),
   })
 })
