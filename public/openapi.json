@@ -31,6 +31,48 @@
         "operationId": "healthGet"
       }
     },
+    "/_fake/seed_from_live_api": {
+      "post": {
+        "x-fern-sdk-group-name": ["_fake"],
+        "x-fern-sdk-method-name": "seed_from_live_api",
+        "summary": "/_fake/seed_from_live_api",
+        "responses": {
+          "200": { "description": "OK" },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "device_category": {
+                    "type": "string",
+                    "enum": [
+                      "smartlock",
+                      "sensor",
+                      "thermostat",
+                      "relay",
+                      "intercom",
+                      "accessory"
+                    ]
+                  },
+                  "vercel_protection_bypass_secret": { "type": "string" },
+                  "device_db_endpoint": { "type": "string", "format": "uri" }
+                },
+                "required": [
+                  "vercel_protection_bypass_secret",
+                  "device_db_endpoint"
+                ]
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "fakeSeedFromLiveApiPost"
+      }
+    },
     "/images/view": {
       "get": {
         "x-fern-sdk-group-name": ["images"],
@@ -41,20 +83,1250 @@
           "400": { "description": "Bad Request" },
           "401": { "description": "Unauthorized" }
         },
+        "security": [{ "vercel_protection_secret": [] }],
         "parameters": [
           {
             "name": "image_id",
             "in": "query",
             "schema": { "type": "string", "format": "uuid" },
             "required": true
+          },
+          {
+            "name": "_fake_external_image_proxy_endpoint",
+            "in": "query",
+            "schema": { "type": "string", "format": "uri" },
+            "required": false
           }
         ],
         "tags": [],
         "operationId": "imagesViewGet"
       }
     },
-    "/v1/device_models/list": {
+    "/v1/device_models/get": {
+      "options": {
+        "x-fern-ignore": true,
+        "summary": "/v1/device_models/get",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "device_model": {
+                      "allOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "device_model_id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "manufacturer": {
+                              "type": "object",
+                              "properties": {
+                                "manufacturer_id": {
+                                  "type": "string",
+                                  "format": "uuid"
+                                },
+                                "display_name": { "type": "string" },
+                                "logo": {
+                                  "type": "object",
+                                  "properties": {
+                                    "url": {
+                                      "type": "string",
+                                      "format": "uri"
+                                    },
+                                    "width": { "type": "number" },
+                                    "height": { "type": "number" }
+                                  },
+                                  "required": ["url", "width", "height"]
+                                },
+                                "integration": {
+                                  "type": "string",
+                                  "enum": [
+                                    "stable",
+                                    "beta",
+                                    "planned",
+                                    "unsupported",
+                                    "inquire"
+                                  ]
+                                },
+                                "is_connect_webview_supported": {
+                                  "type": "boolean"
+                                },
+                                "requires_seam_support_to_add_account": {
+                                  "type": "boolean"
+                                }
+                              },
+                              "required": [
+                                "manufacturer_id",
+                                "display_name",
+                                "integration",
+                                "is_connect_webview_supported",
+                                "requires_seam_support_to_add_account"
+                              ]
+                            },
+                            "is_device_supported": { "type": "boolean" },
+                            "display_name": { "type": "string" },
+                            "description": { "type": "string" },
+                            "product_url": { "type": "string" },
+                            "main_connection_type": {
+                              "type": "string",
+                              "enum": ["wifi", "zwave", "zigbee", "unknown"]
+                            },
+                            "aesthetic_variants": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "slug": { "type": "string" },
+                                  "display_name": { "type": "string" },
+                                  "primary_color_hex": { "type": "string" },
+                                  "manufacturer_sku": { "type": "string" },
+                                  "front_image": {
+                                    "type": "object",
+                                    "properties": {
+                                      "url": {
+                                        "type": "string",
+                                        "format": "uri"
+                                      },
+                                      "width": { "type": "number" },
+                                      "height": { "type": "number" }
+                                    },
+                                    "required": ["url", "width", "height"]
+                                  },
+                                  "back_image": {
+                                    "type": "object",
+                                    "properties": {
+                                      "url": {
+                                        "type": "string",
+                                        "format": "uri"
+                                      },
+                                      "width": { "type": "number" },
+                                      "height": { "type": "number" }
+                                    },
+                                    "required": ["url", "width", "height"]
+                                  },
+                                  "images": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "url": {
+                                          "type": "string",
+                                          "format": "uri"
+                                        },
+                                        "width": { "type": "number" },
+                                        "height": { "type": "number" }
+                                      },
+                                      "required": ["url", "width", "height"]
+                                    }
+                                  }
+                                },
+                                "required": ["slug", "display_name", "images"]
+                              }
+                            },
+                            "power_sources": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "enum": [
+                                  "battery",
+                                  "hardwired",
+                                  "mechanical_harvesting",
+                                  "wireless",
+                                  "ethernet"
+                                ]
+                              }
+                            }
+                          },
+                          "required": [
+                            "device_model_id",
+                            "manufacturer",
+                            "is_device_supported",
+                            "display_name",
+                            "description",
+                            "main_connection_type",
+                            "aesthetic_variants",
+                            "power_sources"
+                          ]
+                        },
+                        {
+                          "discriminator": { "propertyName": "main_category" },
+                          "oneOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "main_category": {
+                                  "type": "string",
+                                  "enum": ["smartlock"]
+                                },
+                                "physical_properties": {
+                                  "type": "object",
+                                  "properties": {
+                                    "lock_type": {
+                                      "type": "string",
+                                      "enum": [
+                                        "deadbolt",
+                                        "lever",
+                                        "mortise",
+                                        "lockbox",
+                                        "cylinder",
+                                        "padlock",
+                                        "locker",
+                                        "unknown"
+                                      ]
+                                    },
+                                    "has_physical_key": { "type": "boolean" },
+                                    "has_camera": { "type": "boolean" }
+                                  },
+                                  "required": [
+                                    "lock_type",
+                                    "has_physical_key",
+                                    "has_camera"
+                                  ]
+                                },
+                                "software_features": {
+                                  "type": "object",
+                                  "properties": {
+                                    "can_remotely_unlock": {
+                                      "type": "boolean"
+                                    },
+                                    "can_program_access_codes": {
+                                      "type": "boolean"
+                                    },
+                                    "can_program_access_schedules": {
+                                      "type": "boolean"
+                                    },
+                                    "can_program_access_codes_offline": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "can_remotely_unlock",
+                                    "can_program_access_codes",
+                                    "can_program_access_schedules",
+                                    "can_program_access_codes_offline"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "main_category",
+                                "physical_properties",
+                                "software_features"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "main_category": {
+                                  "type": "string",
+                                  "enum": ["sensor"]
+                                },
+                                "physical_properties": {
+                                  "type": "object",
+                                  "properties": {
+                                    "has_noise_sensor": { "type": "boolean" },
+                                    "has_humidity_sensor": {
+                                      "type": "boolean"
+                                    },
+                                    "has_temperature_sensor": {
+                                      "type": "boolean"
+                                    },
+                                    "has_occupancy_detection": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "has_noise_sensor",
+                                    "has_humidity_sensor",
+                                    "has_temperature_sensor",
+                                    "has_occupancy_detection"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "main_category",
+                                "physical_properties"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "main_category": {
+                                  "type": "string",
+                                  "enum": ["thermostat"]
+                                },
+                                "physical_properties": {
+                                  "type": "object",
+                                  "properties": {
+                                    "available_modes": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string",
+                                        "enum": ["heat", "cool", "fan", "eco"]
+                                      }
+                                    },
+                                    "is_heat_pump_compatible": {
+                                      "type": "boolean"
+                                    },
+                                    "has_occupancy_detection": {
+                                      "type": "boolean"
+                                    },
+                                    "supports_demand_response": {
+                                      "type": "boolean"
+                                    },
+                                    "has_humidity_sensor": {
+                                      "type": "boolean"
+                                    },
+                                    "has_temperature_sensor": {
+                                      "type": "boolean"
+                                    },
+                                    "supports_emergency_heating_mode": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "available_modes",
+                                    "is_heat_pump_compatible",
+                                    "has_occupancy_detection",
+                                    "supports_demand_response",
+                                    "has_humidity_sensor",
+                                    "has_temperature_sensor",
+                                    "supports_emergency_heating_mode"
+                                  ]
+                                },
+                                "software_features": {
+                                  "type": "object",
+                                  "properties": {
+                                    "can_program_climate_schedules": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": ["can_program_climate_schedules"]
+                                }
+                              },
+                              "required": [
+                                "main_category",
+                                "physical_properties",
+                                "software_features"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "main_category": {
+                                  "type": "string",
+                                  "enum": ["relay"]
+                                }
+                              },
+                              "required": ["main_category"]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "main_category": {
+                                  "type": "string",
+                                  "enum": ["intercom"]
+                                },
+                                "physical_properties": {
+                                  "type": "object",
+                                  "properties": {
+                                    "has_camera": { "type": "boolean" }
+                                  },
+                                  "required": ["has_camera"]
+                                },
+                                "software_features": {
+                                  "type": "object",
+                                  "properties": {
+                                    "can_remotely_unlock": {
+                                      "type": "boolean"
+                                    },
+                                    "can_program_access_codes": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "can_remotely_unlock",
+                                    "can_program_access_codes"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "main_category",
+                                "physical_properties",
+                                "software_features"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "main_category": {
+                                  "type": "string",
+                                  "enum": ["accessory"]
+                                }
+                              },
+                              "required": ["main_category"]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["device_model", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "vercel_protection_secret": [] }],
+        "parameters": [
+          {
+            "name": "device_model_id",
+            "in": "query",
+            "schema": { "type": "string", "format": "uuid" },
+            "required": true
+          }
+        ],
+        "tags": [],
+        "operationId": "v1DeviceModelsGetOptions"
+      },
       "get": {
+        "x-fern-ignore": true,
+        "summary": "/v1/device_models/get",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "device_model": {
+                      "allOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "device_model_id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "manufacturer": {
+                              "type": "object",
+                              "properties": {
+                                "manufacturer_id": {
+                                  "type": "string",
+                                  "format": "uuid"
+                                },
+                                "display_name": { "type": "string" },
+                                "logo": {
+                                  "type": "object",
+                                  "properties": {
+                                    "url": {
+                                      "type": "string",
+                                      "format": "uri"
+                                    },
+                                    "width": { "type": "number" },
+                                    "height": { "type": "number" }
+                                  },
+                                  "required": ["url", "width", "height"]
+                                },
+                                "integration": {
+                                  "type": "string",
+                                  "enum": [
+                                    "stable",
+                                    "beta",
+                                    "planned",
+                                    "unsupported",
+                                    "inquire"
+                                  ]
+                                },
+                                "is_connect_webview_supported": {
+                                  "type": "boolean"
+                                },
+                                "requires_seam_support_to_add_account": {
+                                  "type": "boolean"
+                                }
+                              },
+                              "required": [
+                                "manufacturer_id",
+                                "display_name",
+                                "integration",
+                                "is_connect_webview_supported",
+                                "requires_seam_support_to_add_account"
+                              ]
+                            },
+                            "is_device_supported": { "type": "boolean" },
+                            "display_name": { "type": "string" },
+                            "description": { "type": "string" },
+                            "product_url": { "type": "string" },
+                            "main_connection_type": {
+                              "type": "string",
+                              "enum": ["wifi", "zwave", "zigbee", "unknown"]
+                            },
+                            "aesthetic_variants": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "slug": { "type": "string" },
+                                  "display_name": { "type": "string" },
+                                  "primary_color_hex": { "type": "string" },
+                                  "manufacturer_sku": { "type": "string" },
+                                  "front_image": {
+                                    "type": "object",
+                                    "properties": {
+                                      "url": {
+                                        "type": "string",
+                                        "format": "uri"
+                                      },
+                                      "width": { "type": "number" },
+                                      "height": { "type": "number" }
+                                    },
+                                    "required": ["url", "width", "height"]
+                                  },
+                                  "back_image": {
+                                    "type": "object",
+                                    "properties": {
+                                      "url": {
+                                        "type": "string",
+                                        "format": "uri"
+                                      },
+                                      "width": { "type": "number" },
+                                      "height": { "type": "number" }
+                                    },
+                                    "required": ["url", "width", "height"]
+                                  },
+                                  "images": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "url": {
+                                          "type": "string",
+                                          "format": "uri"
+                                        },
+                                        "width": { "type": "number" },
+                                        "height": { "type": "number" }
+                                      },
+                                      "required": ["url", "width", "height"]
+                                    }
+                                  }
+                                },
+                                "required": ["slug", "display_name", "images"]
+                              }
+                            },
+                            "power_sources": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "enum": [
+                                  "battery",
+                                  "hardwired",
+                                  "mechanical_harvesting",
+                                  "wireless",
+                                  "ethernet"
+                                ]
+                              }
+                            }
+                          },
+                          "required": [
+                            "device_model_id",
+                            "manufacturer",
+                            "is_device_supported",
+                            "display_name",
+                            "description",
+                            "main_connection_type",
+                            "aesthetic_variants",
+                            "power_sources"
+                          ]
+                        },
+                        {
+                          "discriminator": { "propertyName": "main_category" },
+                          "oneOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "main_category": {
+                                  "type": "string",
+                                  "enum": ["smartlock"]
+                                },
+                                "physical_properties": {
+                                  "type": "object",
+                                  "properties": {
+                                    "lock_type": {
+                                      "type": "string",
+                                      "enum": [
+                                        "deadbolt",
+                                        "lever",
+                                        "mortise",
+                                        "lockbox",
+                                        "cylinder",
+                                        "padlock",
+                                        "locker",
+                                        "unknown"
+                                      ]
+                                    },
+                                    "has_physical_key": { "type": "boolean" },
+                                    "has_camera": { "type": "boolean" }
+                                  },
+                                  "required": [
+                                    "lock_type",
+                                    "has_physical_key",
+                                    "has_camera"
+                                  ]
+                                },
+                                "software_features": {
+                                  "type": "object",
+                                  "properties": {
+                                    "can_remotely_unlock": {
+                                      "type": "boolean"
+                                    },
+                                    "can_program_access_codes": {
+                                      "type": "boolean"
+                                    },
+                                    "can_program_access_schedules": {
+                                      "type": "boolean"
+                                    },
+                                    "can_program_access_codes_offline": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "can_remotely_unlock",
+                                    "can_program_access_codes",
+                                    "can_program_access_schedules",
+                                    "can_program_access_codes_offline"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "main_category",
+                                "physical_properties",
+                                "software_features"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "main_category": {
+                                  "type": "string",
+                                  "enum": ["sensor"]
+                                },
+                                "physical_properties": {
+                                  "type": "object",
+                                  "properties": {
+                                    "has_noise_sensor": { "type": "boolean" },
+                                    "has_humidity_sensor": {
+                                      "type": "boolean"
+                                    },
+                                    "has_temperature_sensor": {
+                                      "type": "boolean"
+                                    },
+                                    "has_occupancy_detection": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "has_noise_sensor",
+                                    "has_humidity_sensor",
+                                    "has_temperature_sensor",
+                                    "has_occupancy_detection"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "main_category",
+                                "physical_properties"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "main_category": {
+                                  "type": "string",
+                                  "enum": ["thermostat"]
+                                },
+                                "physical_properties": {
+                                  "type": "object",
+                                  "properties": {
+                                    "available_modes": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string",
+                                        "enum": ["heat", "cool", "fan", "eco"]
+                                      }
+                                    },
+                                    "is_heat_pump_compatible": {
+                                      "type": "boolean"
+                                    },
+                                    "has_occupancy_detection": {
+                                      "type": "boolean"
+                                    },
+                                    "supports_demand_response": {
+                                      "type": "boolean"
+                                    },
+                                    "has_humidity_sensor": {
+                                      "type": "boolean"
+                                    },
+                                    "has_temperature_sensor": {
+                                      "type": "boolean"
+                                    },
+                                    "supports_emergency_heating_mode": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "available_modes",
+                                    "is_heat_pump_compatible",
+                                    "has_occupancy_detection",
+                                    "supports_demand_response",
+                                    "has_humidity_sensor",
+                                    "has_temperature_sensor",
+                                    "supports_emergency_heating_mode"
+                                  ]
+                                },
+                                "software_features": {
+                                  "type": "object",
+                                  "properties": {
+                                    "can_program_climate_schedules": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": ["can_program_climate_schedules"]
+                                }
+                              },
+                              "required": [
+                                "main_category",
+                                "physical_properties",
+                                "software_features"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "main_category": {
+                                  "type": "string",
+                                  "enum": ["relay"]
+                                }
+                              },
+                              "required": ["main_category"]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "main_category": {
+                                  "type": "string",
+                                  "enum": ["intercom"]
+                                },
+                                "physical_properties": {
+                                  "type": "object",
+                                  "properties": {
+                                    "has_camera": { "type": "boolean" }
+                                  },
+                                  "required": ["has_camera"]
+                                },
+                                "software_features": {
+                                  "type": "object",
+                                  "properties": {
+                                    "can_remotely_unlock": {
+                                      "type": "boolean"
+                                    },
+                                    "can_program_access_codes": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "can_remotely_unlock",
+                                    "can_program_access_codes"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "main_category",
+                                "physical_properties",
+                                "software_features"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "main_category": {
+                                  "type": "string",
+                                  "enum": ["accessory"]
+                                }
+                              },
+                              "required": ["main_category"]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["device_model", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "vercel_protection_secret": [] }],
+        "parameters": [
+          {
+            "name": "device_model_id",
+            "in": "query",
+            "schema": { "type": "string", "format": "uuid" },
+            "required": true
+          }
+        ],
+        "tags": [],
+        "operationId": "v1DeviceModelsGetGet"
+      }
+    },
+    "/v1/device_models/list": {
+      "options": {
+        "x-fern-ignore": true,
+        "summary": "/v1/device_models/list",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "device_models": {
+                      "type": "array",
+                      "items": {
+                        "allOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "device_model_id": {
+                                "type": "string",
+                                "format": "uuid"
+                              },
+                              "manufacturer": {
+                                "type": "object",
+                                "properties": {
+                                  "manufacturer_id": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                  },
+                                  "display_name": { "type": "string" },
+                                  "logo": {
+                                    "type": "object",
+                                    "properties": {
+                                      "url": {
+                                        "type": "string",
+                                        "format": "uri"
+                                      },
+                                      "width": { "type": "number" },
+                                      "height": { "type": "number" }
+                                    },
+                                    "required": ["url", "width", "height"]
+                                  },
+                                  "integration": {
+                                    "type": "string",
+                                    "enum": [
+                                      "stable",
+                                      "beta",
+                                      "planned",
+                                      "unsupported",
+                                      "inquire"
+                                    ]
+                                  },
+                                  "is_connect_webview_supported": {
+                                    "type": "boolean"
+                                  },
+                                  "requires_seam_support_to_add_account": {
+                                    "type": "boolean"
+                                  }
+                                },
+                                "required": [
+                                  "manufacturer_id",
+                                  "display_name",
+                                  "integration",
+                                  "is_connect_webview_supported",
+                                  "requires_seam_support_to_add_account"
+                                ]
+                              },
+                              "is_device_supported": { "type": "boolean" },
+                              "display_name": { "type": "string" },
+                              "description": { "type": "string" },
+                              "product_url": { "type": "string" },
+                              "main_connection_type": {
+                                "type": "string",
+                                "enum": ["wifi", "zwave", "zigbee", "unknown"]
+                              },
+                              "aesthetic_variants": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "slug": { "type": "string" },
+                                    "display_name": { "type": "string" },
+                                    "primary_color_hex": { "type": "string" },
+                                    "manufacturer_sku": { "type": "string" },
+                                    "front_image": {
+                                      "type": "object",
+                                      "properties": {
+                                        "url": {
+                                          "type": "string",
+                                          "format": "uri"
+                                        },
+                                        "width": { "type": "number" },
+                                        "height": { "type": "number" }
+                                      },
+                                      "required": ["url", "width", "height"]
+                                    },
+                                    "back_image": {
+                                      "type": "object",
+                                      "properties": {
+                                        "url": {
+                                          "type": "string",
+                                          "format": "uri"
+                                        },
+                                        "width": { "type": "number" },
+                                        "height": { "type": "number" }
+                                      },
+                                      "required": ["url", "width", "height"]
+                                    },
+                                    "images": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "url": {
+                                            "type": "string",
+                                            "format": "uri"
+                                          },
+                                          "width": { "type": "number" },
+                                          "height": { "type": "number" }
+                                        },
+                                        "required": ["url", "width", "height"]
+                                      }
+                                    }
+                                  },
+                                  "required": ["slug", "display_name", "images"]
+                                }
+                              },
+                              "power_sources": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "enum": [
+                                    "battery",
+                                    "hardwired",
+                                    "mechanical_harvesting",
+                                    "wireless",
+                                    "ethernet"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "device_model_id",
+                              "manufacturer",
+                              "is_device_supported",
+                              "display_name",
+                              "description",
+                              "main_connection_type",
+                              "aesthetic_variants",
+                              "power_sources"
+                            ]
+                          },
+                          {
+                            "discriminator": {
+                              "propertyName": "main_category"
+                            },
+                            "oneOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "main_category": {
+                                    "type": "string",
+                                    "enum": ["smartlock"]
+                                  },
+                                  "physical_properties": {
+                                    "type": "object",
+                                    "properties": {
+                                      "lock_type": {
+                                        "type": "string",
+                                        "enum": [
+                                          "deadbolt",
+                                          "lever",
+                                          "mortise",
+                                          "lockbox",
+                                          "cylinder",
+                                          "padlock",
+                                          "locker",
+                                          "unknown"
+                                        ]
+                                      },
+                                      "has_physical_key": { "type": "boolean" },
+                                      "has_camera": { "type": "boolean" }
+                                    },
+                                    "required": [
+                                      "lock_type",
+                                      "has_physical_key",
+                                      "has_camera"
+                                    ]
+                                  },
+                                  "software_features": {
+                                    "type": "object",
+                                    "properties": {
+                                      "can_remotely_unlock": {
+                                        "type": "boolean"
+                                      },
+                                      "can_program_access_codes": {
+                                        "type": "boolean"
+                                      },
+                                      "can_program_access_schedules": {
+                                        "type": "boolean"
+                                      },
+                                      "can_program_access_codes_offline": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "can_remotely_unlock",
+                                      "can_program_access_codes",
+                                      "can_program_access_schedules",
+                                      "can_program_access_codes_offline"
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "main_category",
+                                  "physical_properties",
+                                  "software_features"
+                                ]
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "main_category": {
+                                    "type": "string",
+                                    "enum": ["sensor"]
+                                  },
+                                  "physical_properties": {
+                                    "type": "object",
+                                    "properties": {
+                                      "has_noise_sensor": { "type": "boolean" },
+                                      "has_humidity_sensor": {
+                                        "type": "boolean"
+                                      },
+                                      "has_temperature_sensor": {
+                                        "type": "boolean"
+                                      },
+                                      "has_occupancy_detection": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "has_noise_sensor",
+                                      "has_humidity_sensor",
+                                      "has_temperature_sensor",
+                                      "has_occupancy_detection"
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "main_category",
+                                  "physical_properties"
+                                ]
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "main_category": {
+                                    "type": "string",
+                                    "enum": ["thermostat"]
+                                  },
+                                  "physical_properties": {
+                                    "type": "object",
+                                    "properties": {
+                                      "available_modes": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string",
+                                          "enum": ["heat", "cool", "fan", "eco"]
+                                        }
+                                      },
+                                      "is_heat_pump_compatible": {
+                                        "type": "boolean"
+                                      },
+                                      "has_occupancy_detection": {
+                                        "type": "boolean"
+                                      },
+                                      "supports_demand_response": {
+                                        "type": "boolean"
+                                      },
+                                      "has_humidity_sensor": {
+                                        "type": "boolean"
+                                      },
+                                      "has_temperature_sensor": {
+                                        "type": "boolean"
+                                      },
+                                      "supports_emergency_heating_mode": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "available_modes",
+                                      "is_heat_pump_compatible",
+                                      "has_occupancy_detection",
+                                      "supports_demand_response",
+                                      "has_humidity_sensor",
+                                      "has_temperature_sensor",
+                                      "supports_emergency_heating_mode"
+                                    ]
+                                  },
+                                  "software_features": {
+                                    "type": "object",
+                                    "properties": {
+                                      "can_program_climate_schedules": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "can_program_climate_schedules"
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "main_category",
+                                  "physical_properties",
+                                  "software_features"
+                                ]
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "main_category": {
+                                    "type": "string",
+                                    "enum": ["relay"]
+                                  }
+                                },
+                                "required": ["main_category"]
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "main_category": {
+                                    "type": "string",
+                                    "enum": ["intercom"]
+                                  },
+                                  "physical_properties": {
+                                    "type": "object",
+                                    "properties": {
+                                      "has_camera": { "type": "boolean" }
+                                    },
+                                    "required": ["has_camera"]
+                                  },
+                                  "software_features": {
+                                    "type": "object",
+                                    "properties": {
+                                      "can_remotely_unlock": {
+                                        "type": "boolean"
+                                      },
+                                      "can_program_access_codes": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "can_remotely_unlock",
+                                      "can_program_access_codes"
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "main_category",
+                                  "physical_properties",
+                                  "software_features"
+                                ]
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "main_category": {
+                                    "type": "string",
+                                    "enum": ["accessory"]
+                                  }
+                                },
+                                "required": ["main_category"]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["device_models", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "vercel_protection_secret": [] }],
+        "parameters": [
+          {
+            "name": "main_category",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "smartlock",
+                "sensor",
+                "thermostat",
+                "relay",
+                "intercom",
+                "accessory"
+              ]
+            }
+          },
+          {
+            "name": "manufacturer_id",
+            "in": "query",
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "manufacturer_ids",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": { "type": "string", "format": "uuid" }
+            }
+          },
+          {
+            "name": "integration_status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["stable", "beta", "planned", "unsupported", "inquire"]
+            }
+          },
+          {
+            "name": "text_search",
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "tags": [],
+        "operationId": "v1DeviceModelsListOptions"
+      },
+      "post": {
         "x-fern-sdk-group-name": ["v1", "device_models"],
         "x-fern-sdk-method-name": "list",
         "summary": "/v1/device_models/list",
@@ -444,8 +1716,945 @@
           "401": { "description": "Unauthorized" }
         },
         "security": [{ "vercel_protection_secret": [] }],
+        "parameters": [
+          {
+            "name": "main_category",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "smartlock",
+                "sensor",
+                "thermostat",
+                "relay",
+                "intercom",
+                "accessory"
+              ]
+            }
+          },
+          {
+            "name": "manufacturer_id",
+            "in": "query",
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "manufacturer_ids",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": { "type": "string", "format": "uuid" }
+            }
+          },
+          {
+            "name": "integration_status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["stable", "beta", "planned", "unsupported", "inquire"]
+            }
+          },
+          {
+            "name": "text_search",
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "tags": [],
+        "operationId": "v1DeviceModelsListPost"
+      },
+      "get": {
+        "x-fern-ignore": true,
+        "summary": "/v1/device_models/list",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "device_models": {
+                      "type": "array",
+                      "items": {
+                        "allOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "device_model_id": {
+                                "type": "string",
+                                "format": "uuid"
+                              },
+                              "manufacturer": {
+                                "type": "object",
+                                "properties": {
+                                  "manufacturer_id": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                  },
+                                  "display_name": { "type": "string" },
+                                  "logo": {
+                                    "type": "object",
+                                    "properties": {
+                                      "url": {
+                                        "type": "string",
+                                        "format": "uri"
+                                      },
+                                      "width": { "type": "number" },
+                                      "height": { "type": "number" }
+                                    },
+                                    "required": ["url", "width", "height"]
+                                  },
+                                  "integration": {
+                                    "type": "string",
+                                    "enum": [
+                                      "stable",
+                                      "beta",
+                                      "planned",
+                                      "unsupported",
+                                      "inquire"
+                                    ]
+                                  },
+                                  "is_connect_webview_supported": {
+                                    "type": "boolean"
+                                  },
+                                  "requires_seam_support_to_add_account": {
+                                    "type": "boolean"
+                                  }
+                                },
+                                "required": [
+                                  "manufacturer_id",
+                                  "display_name",
+                                  "integration",
+                                  "is_connect_webview_supported",
+                                  "requires_seam_support_to_add_account"
+                                ]
+                              },
+                              "is_device_supported": { "type": "boolean" },
+                              "display_name": { "type": "string" },
+                              "description": { "type": "string" },
+                              "product_url": { "type": "string" },
+                              "main_connection_type": {
+                                "type": "string",
+                                "enum": ["wifi", "zwave", "zigbee", "unknown"]
+                              },
+                              "aesthetic_variants": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "slug": { "type": "string" },
+                                    "display_name": { "type": "string" },
+                                    "primary_color_hex": { "type": "string" },
+                                    "manufacturer_sku": { "type": "string" },
+                                    "front_image": {
+                                      "type": "object",
+                                      "properties": {
+                                        "url": {
+                                          "type": "string",
+                                          "format": "uri"
+                                        },
+                                        "width": { "type": "number" },
+                                        "height": { "type": "number" }
+                                      },
+                                      "required": ["url", "width", "height"]
+                                    },
+                                    "back_image": {
+                                      "type": "object",
+                                      "properties": {
+                                        "url": {
+                                          "type": "string",
+                                          "format": "uri"
+                                        },
+                                        "width": { "type": "number" },
+                                        "height": { "type": "number" }
+                                      },
+                                      "required": ["url", "width", "height"]
+                                    },
+                                    "images": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "url": {
+                                            "type": "string",
+                                            "format": "uri"
+                                          },
+                                          "width": { "type": "number" },
+                                          "height": { "type": "number" }
+                                        },
+                                        "required": ["url", "width", "height"]
+                                      }
+                                    }
+                                  },
+                                  "required": ["slug", "display_name", "images"]
+                                }
+                              },
+                              "power_sources": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "enum": [
+                                    "battery",
+                                    "hardwired",
+                                    "mechanical_harvesting",
+                                    "wireless",
+                                    "ethernet"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "device_model_id",
+                              "manufacturer",
+                              "is_device_supported",
+                              "display_name",
+                              "description",
+                              "main_connection_type",
+                              "aesthetic_variants",
+                              "power_sources"
+                            ]
+                          },
+                          {
+                            "discriminator": {
+                              "propertyName": "main_category"
+                            },
+                            "oneOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "main_category": {
+                                    "type": "string",
+                                    "enum": ["smartlock"]
+                                  },
+                                  "physical_properties": {
+                                    "type": "object",
+                                    "properties": {
+                                      "lock_type": {
+                                        "type": "string",
+                                        "enum": [
+                                          "deadbolt",
+                                          "lever",
+                                          "mortise",
+                                          "lockbox",
+                                          "cylinder",
+                                          "padlock",
+                                          "locker",
+                                          "unknown"
+                                        ]
+                                      },
+                                      "has_physical_key": { "type": "boolean" },
+                                      "has_camera": { "type": "boolean" }
+                                    },
+                                    "required": [
+                                      "lock_type",
+                                      "has_physical_key",
+                                      "has_camera"
+                                    ]
+                                  },
+                                  "software_features": {
+                                    "type": "object",
+                                    "properties": {
+                                      "can_remotely_unlock": {
+                                        "type": "boolean"
+                                      },
+                                      "can_program_access_codes": {
+                                        "type": "boolean"
+                                      },
+                                      "can_program_access_schedules": {
+                                        "type": "boolean"
+                                      },
+                                      "can_program_access_codes_offline": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "can_remotely_unlock",
+                                      "can_program_access_codes",
+                                      "can_program_access_schedules",
+                                      "can_program_access_codes_offline"
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "main_category",
+                                  "physical_properties",
+                                  "software_features"
+                                ]
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "main_category": {
+                                    "type": "string",
+                                    "enum": ["sensor"]
+                                  },
+                                  "physical_properties": {
+                                    "type": "object",
+                                    "properties": {
+                                      "has_noise_sensor": { "type": "boolean" },
+                                      "has_humidity_sensor": {
+                                        "type": "boolean"
+                                      },
+                                      "has_temperature_sensor": {
+                                        "type": "boolean"
+                                      },
+                                      "has_occupancy_detection": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "has_noise_sensor",
+                                      "has_humidity_sensor",
+                                      "has_temperature_sensor",
+                                      "has_occupancy_detection"
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "main_category",
+                                  "physical_properties"
+                                ]
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "main_category": {
+                                    "type": "string",
+                                    "enum": ["thermostat"]
+                                  },
+                                  "physical_properties": {
+                                    "type": "object",
+                                    "properties": {
+                                      "available_modes": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string",
+                                          "enum": ["heat", "cool", "fan", "eco"]
+                                        }
+                                      },
+                                      "is_heat_pump_compatible": {
+                                        "type": "boolean"
+                                      },
+                                      "has_occupancy_detection": {
+                                        "type": "boolean"
+                                      },
+                                      "supports_demand_response": {
+                                        "type": "boolean"
+                                      },
+                                      "has_humidity_sensor": {
+                                        "type": "boolean"
+                                      },
+                                      "has_temperature_sensor": {
+                                        "type": "boolean"
+                                      },
+                                      "supports_emergency_heating_mode": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "available_modes",
+                                      "is_heat_pump_compatible",
+                                      "has_occupancy_detection",
+                                      "supports_demand_response",
+                                      "has_humidity_sensor",
+                                      "has_temperature_sensor",
+                                      "supports_emergency_heating_mode"
+                                    ]
+                                  },
+                                  "software_features": {
+                                    "type": "object",
+                                    "properties": {
+                                      "can_program_climate_schedules": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "can_program_climate_schedules"
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "main_category",
+                                  "physical_properties",
+                                  "software_features"
+                                ]
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "main_category": {
+                                    "type": "string",
+                                    "enum": ["relay"]
+                                  }
+                                },
+                                "required": ["main_category"]
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "main_category": {
+                                    "type": "string",
+                                    "enum": ["intercom"]
+                                  },
+                                  "physical_properties": {
+                                    "type": "object",
+                                    "properties": {
+                                      "has_camera": { "type": "boolean" }
+                                    },
+                                    "required": ["has_camera"]
+                                  },
+                                  "software_features": {
+                                    "type": "object",
+                                    "properties": {
+                                      "can_remotely_unlock": {
+                                        "type": "boolean"
+                                      },
+                                      "can_program_access_codes": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "can_remotely_unlock",
+                                      "can_program_access_codes"
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "main_category",
+                                  "physical_properties",
+                                  "software_features"
+                                ]
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "main_category": {
+                                    "type": "string",
+                                    "enum": ["accessory"]
+                                  }
+                                },
+                                "required": ["main_category"]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["device_models", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "vercel_protection_secret": [] }],
+        "parameters": [
+          {
+            "name": "main_category",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "smartlock",
+                "sensor",
+                "thermostat",
+                "relay",
+                "intercom",
+                "accessory"
+              ]
+            }
+          },
+          {
+            "name": "manufacturer_id",
+            "in": "query",
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "manufacturer_ids",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": { "type": "string", "format": "uuid" }
+            }
+          },
+          {
+            "name": "integration_status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["stable", "beta", "planned", "unsupported", "inquire"]
+            }
+          },
+          {
+            "name": "text_search",
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
         "tags": [],
         "operationId": "v1DeviceModelsListGet"
+      }
+    },
+    "/v1/manufacturers/get": {
+      "options": {
+        "x-fern-ignore": true,
+        "summary": "/v1/manufacturers/get",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "manufacturer": {
+                      "type": "object",
+                      "properties": {
+                        "manufacturer_id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "display_name": { "type": "string" },
+                        "logo": {
+                          "type": "object",
+                          "properties": {
+                            "url": { "type": "string", "format": "uri" },
+                            "width": { "type": "number" },
+                            "height": { "type": "number" }
+                          },
+                          "required": ["url", "width", "height"]
+                        },
+                        "integration": {
+                          "type": "string",
+                          "enum": [
+                            "stable",
+                            "beta",
+                            "planned",
+                            "unsupported",
+                            "inquire"
+                          ]
+                        },
+                        "is_connect_webview_supported": { "type": "boolean" },
+                        "requires_seam_support_to_add_account": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "manufacturer_id",
+                        "display_name",
+                        "integration",
+                        "is_connect_webview_supported",
+                        "requires_seam_support_to_add_account"
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["manufacturer", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "vercel_protection_secret": [] }],
+        "parameters": [
+          {
+            "name": "manufacturer_id",
+            "in": "query",
+            "schema": { "type": "string", "format": "uuid" },
+            "required": true
+          }
+        ],
+        "tags": [],
+        "operationId": "v1ManufacturersGetOptions"
+      },
+      "post": {
+        "x-fern-sdk-group-name": ["v1", "manufacturers"],
+        "x-fern-sdk-method-name": "get",
+        "summary": "/v1/manufacturers/get",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "manufacturer": {
+                      "type": "object",
+                      "properties": {
+                        "manufacturer_id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "display_name": { "type": "string" },
+                        "logo": {
+                          "type": "object",
+                          "properties": {
+                            "url": { "type": "string", "format": "uri" },
+                            "width": { "type": "number" },
+                            "height": { "type": "number" }
+                          },
+                          "required": ["url", "width", "height"]
+                        },
+                        "integration": {
+                          "type": "string",
+                          "enum": [
+                            "stable",
+                            "beta",
+                            "planned",
+                            "unsupported",
+                            "inquire"
+                          ]
+                        },
+                        "is_connect_webview_supported": { "type": "boolean" },
+                        "requires_seam_support_to_add_account": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "manufacturer_id",
+                        "display_name",
+                        "integration",
+                        "is_connect_webview_supported",
+                        "requires_seam_support_to_add_account"
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["manufacturer", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "vercel_protection_secret": [] }],
+        "parameters": [
+          {
+            "name": "manufacturer_id",
+            "in": "query",
+            "schema": { "type": "string", "format": "uuid" },
+            "required": true
+          }
+        ],
+        "tags": [],
+        "operationId": "v1ManufacturersGetPost"
+      },
+      "get": {
+        "x-fern-ignore": true,
+        "summary": "/v1/manufacturers/get",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "manufacturer": {
+                      "type": "object",
+                      "properties": {
+                        "manufacturer_id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "display_name": { "type": "string" },
+                        "logo": {
+                          "type": "object",
+                          "properties": {
+                            "url": { "type": "string", "format": "uri" },
+                            "width": { "type": "number" },
+                            "height": { "type": "number" }
+                          },
+                          "required": ["url", "width", "height"]
+                        },
+                        "integration": {
+                          "type": "string",
+                          "enum": [
+                            "stable",
+                            "beta",
+                            "planned",
+                            "unsupported",
+                            "inquire"
+                          ]
+                        },
+                        "is_connect_webview_supported": { "type": "boolean" },
+                        "requires_seam_support_to_add_account": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "manufacturer_id",
+                        "display_name",
+                        "integration",
+                        "is_connect_webview_supported",
+                        "requires_seam_support_to_add_account"
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["manufacturer", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "vercel_protection_secret": [] }],
+        "parameters": [
+          {
+            "name": "manufacturer_id",
+            "in": "query",
+            "schema": { "type": "string", "format": "uuid" },
+            "required": true
+          }
+        ],
+        "tags": [],
+        "operationId": "v1ManufacturersGetGet"
+      }
+    },
+    "/v1/manufacturers/list": {
+      "options": {
+        "x-fern-ignore": true,
+        "summary": "/v1/manufacturers/list",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "manufacturers": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "manufacturer_id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "display_name": { "type": "string" },
+                          "logo": {
+                            "type": "object",
+                            "properties": {
+                              "url": { "type": "string", "format": "uri" },
+                              "width": { "type": "number" },
+                              "height": { "type": "number" }
+                            },
+                            "required": ["url", "width", "height"]
+                          },
+                          "integration": {
+                            "type": "string",
+                            "enum": [
+                              "stable",
+                              "beta",
+                              "planned",
+                              "unsupported",
+                              "inquire"
+                            ]
+                          },
+                          "is_connect_webview_supported": { "type": "boolean" },
+                          "requires_seam_support_to_add_account": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "manufacturer_id",
+                          "display_name",
+                          "integration",
+                          "is_connect_webview_supported",
+                          "requires_seam_support_to_add_account"
+                        ]
+                      }
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["manufacturers", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "vercel_protection_secret": [] }],
+        "parameters": [
+          {
+            "name": "integration_status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["stable", "beta", "planned", "unsupported", "inquire"]
+            }
+          }
+        ],
+        "tags": [],
+        "operationId": "v1ManufacturersListOptions"
+      },
+      "post": {
+        "x-fern-sdk-group-name": ["v1", "manufacturers"],
+        "x-fern-sdk-method-name": "list",
+        "summary": "/v1/manufacturers/list",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "manufacturers": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "manufacturer_id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "display_name": { "type": "string" },
+                          "logo": {
+                            "type": "object",
+                            "properties": {
+                              "url": { "type": "string", "format": "uri" },
+                              "width": { "type": "number" },
+                              "height": { "type": "number" }
+                            },
+                            "required": ["url", "width", "height"]
+                          },
+                          "integration": {
+                            "type": "string",
+                            "enum": [
+                              "stable",
+                              "beta",
+                              "planned",
+                              "unsupported",
+                              "inquire"
+                            ]
+                          },
+                          "is_connect_webview_supported": { "type": "boolean" },
+                          "requires_seam_support_to_add_account": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "manufacturer_id",
+                          "display_name",
+                          "integration",
+                          "is_connect_webview_supported",
+                          "requires_seam_support_to_add_account"
+                        ]
+                      }
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["manufacturers", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "vercel_protection_secret": [] }],
+        "parameters": [
+          {
+            "name": "integration_status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["stable", "beta", "planned", "unsupported", "inquire"]
+            }
+          }
+        ],
+        "tags": [],
+        "operationId": "v1ManufacturersListPost"
+      },
+      "get": {
+        "x-fern-ignore": true,
+        "summary": "/v1/manufacturers/list",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "manufacturers": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "manufacturer_id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "display_name": { "type": "string" },
+                          "logo": {
+                            "type": "object",
+                            "properties": {
+                              "url": { "type": "string", "format": "uri" },
+                              "width": { "type": "number" },
+                              "height": { "type": "number" }
+                            },
+                            "required": ["url", "width", "height"]
+                          },
+                          "integration": {
+                            "type": "string",
+                            "enum": [
+                              "stable",
+                              "beta",
+                              "planned",
+                              "unsupported",
+                              "inquire"
+                            ]
+                          },
+                          "is_connect_webview_supported": { "type": "boolean" },
+                          "requires_seam_support_to_add_account": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "manufacturer_id",
+                          "display_name",
+                          "integration",
+                          "is_connect_webview_supported",
+                          "requires_seam_support_to_add_account"
+                        ]
+                      }
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["manufacturers", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "vercel_protection_secret": [] }],
+        "parameters": [
+          {
+            "name": "integration_status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["stable", "beta", "planned", "unsupported", "inquire"]
+            }
+          }
+        ],
+        "tags": [],
+        "operationId": "v1ManufacturersListGet"
       }
     }
   },

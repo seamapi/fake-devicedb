@@ -1,3 +1,4 @@
+import axios from "axios"
 import { NotFoundException } from "nextlove"
 import { z } from "zod"
 
@@ -9,8 +10,37 @@ export default withRouteSpec({
   methods: ["GET"],
   queryParams: z.object({
     image_id: z.string().uuid(),
+    _fake_external_image_proxy_endpoint: z.string().url().optional(),
   }),
 } as const)(async (req, res) => {
+  const { image_id, _fake_external_image_proxy_endpoint } = req.query
+  if (_fake_external_image_proxy_endpoint) {
+    const { status, headers, data } = await axios.get(
+      _fake_external_image_proxy_endpoint,
+      {
+        params: {
+          image_id,
+        },
+        responseType: "arraybuffer",
+        validateStatus: () => true,
+      },
+    )
+
+    res.status(status)
+
+    if (headers["cache-control"]) {
+      res.setHeader("cache-control", headers["cache-control"] as string)
+    }
+
+    if (headers["content-type"]) {
+      res.setHeader("content-type", headers["content-type"] as string)
+    }
+
+    res.end(data)
+
+    return
+  }
+
   if (req.query.image_id !== "00000000-0000-0000-0000-000000000000") {
     throw new NotFoundException({
       type: "image_not_found",

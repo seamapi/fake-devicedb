@@ -16,3 +16,15 @@ export const getFullUrlToFakeResource = (
   const url = new URL(`http://${host}`)
   return `${url.toString()}${path_on_fake}`
 }
+
+export const getBaseUrl = (
+  req: Pick<NextApiRequest, "headers" | "socket">,
+): string => {
+  const seam_connect_forwarded = req.headers["x-forwarded-seam-base-url"]
+
+  if (seam_connect_forwarded) {
+    return seam_connect_forwarded as string
+  }
+
+  return `http://${req.headers.host}`
+}

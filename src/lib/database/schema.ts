@@ -1,16 +1,21 @@
+import type { DeviceModelV1, Manufacturer } from "@seamapi/types/devicedb"
 import type { HoistedStoreApi } from "zustand-hoist"
 
-import type { Thing, ThingInitializer } from "lib/models.ts"
+import type { StoredDeviceModelV1, StoredManufacturer } from "lib/models.ts"
 
 export interface DatabaseState {
-  _id: number
-  things: Thing[]
+  manufacturers: StoredManufacturer[]
+  device_models: StoredDeviceModelV1[]
   vercel_protection_secret: string
+  external_image_proxy_endpoint: string | null
 }
 
 export interface DatabaseMethods {
-  addThing: (thing: ThingInitializer) => Thing
-  simulatePowerFailure: (thingId: string) => void
+  addManufacturerFromLiveApi: (manufacturer: Manufacturer) => void
+  addDeviceModelFromLiveApi: (device_model: DeviceModelV1) => void
+  addManufacturer: (manufacturer: StoredManufacturer) => StoredManufacturer
+  addDeviceModel: (device_model: StoredDeviceModelV1) => StoredDeviceModelV1
+  setExternalImageProxyEndpoint: (endpoint: string | null) => void
   update: (t?: number) => void
 }
 
