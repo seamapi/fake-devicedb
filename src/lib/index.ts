@@ -1,5 +1,6 @@
 export type { Database, Seed } from "./database/index.ts"
 export { createDatabase, seedDatabase } from "./database/index.ts"
+export { populateFromLiveApi } from "./database/populate-from-live-api.ts"
 export { createFake, Fake } from "./fake.ts"
 export type * from "./models.ts"
 export { startServer } from "./server.ts"

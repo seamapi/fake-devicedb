@@ -10,6 +10,33 @@ Fake for Seam Devicedb. Use with Fake Seam Connect.
 This module allows you to spin up an in-memory server
 for the Seam Devicedb.
 
+## 📓 Notes
+
+### Text Search
+
+Full-text search on real devicedb API (using the `?text_search` parameter) is far more flexible than the simple matching provided by this fake.
+
+### Seeding with Data
+
+This fake can be seeded with data from the live API. To do so, either call `POST /_fake/populate-from-live-api` or use the exported helper:
+
+```ts
+import { createDatabase, populateFromLiveApi } from "@seamapi/fake-devicedb"
+
+const db = createDatabase()
+
+await populateFromLiveApi({
+  db,
+  vercel_protection_bypass_secret: "<secret>",
+  endpoint: "https://devicedb.seam.tube",
+  device_category: "smartlock",
+})
+```
+
+### Images
+
+There is a single bundled image available for testing. To test with more images, populate the database using the method described above. The `image_id`s in the fake database will then point to `image_id`s from the live API and requests to the fake's `/images/view` endpoint will proxy through to the live API.
+
 ## Installation
 
 Add this as a dependency to your project using [npm] with
