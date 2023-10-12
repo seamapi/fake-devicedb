@@ -6,16 +6,14 @@ import type { TypedAxios } from "typed-axios-instance"
 import type { Database } from "./schema.ts"
 
 interface PopulateFromLiveApiOptions {
-  db: Database
-  live_client: AxiosInstance
-  device_category: Routes["/v1/device_models/list"]["queryParams"]["main_category"]
+  device_category?: Routes["/v1/device_models/list"]["queryParams"]["main_category"]
 }
 
-export const seedFromLiveApi = async ({
-  db,
-  live_client,
-  device_category,
-}: PopulateFromLiveApiOptions) => {
+export const seedFromLiveApi = async (
+  db: Database,
+  live_client: AxiosInstance,
+  { device_category = "smartlock" }: PopulateFromLiveApiOptions = {},
+) => {
   // 🤷
   const client = live_client as TypedAxios<Simplify<Routes>>
 

@@ -34,11 +34,7 @@ const live_client = axios.create({
   },
 })
 
-await seedFromLiveApi({
-  db,
-  device_category: "smartlock",
-  live_client,
-})
+await seedFromLiveApi(db, live_client)
 ```
 
 ### Images

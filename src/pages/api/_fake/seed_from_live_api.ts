@@ -29,10 +29,8 @@ export default withRouteSpec({
     },
   })
 
-  await seedFromLiveApi({
-    db: req.db,
+  await seedFromLiveApi(req.db, live_client, {
     device_category,
-    live_client,
   })
 
   res.status(200).json({})
