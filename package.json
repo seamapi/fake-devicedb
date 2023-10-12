@@ -70,12 +70,14 @@
   },
   "devDependencies": {
     "@seamapi/logger": "^1.9.2",
+    "@seamapi/types": "^1.26.2",
     "@tsconfig/next": "^2.0.0",
     "@types/get-pixels": "^3.3.2",
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.35",
     "@types/react-dom": "^18.0.11",
     "ava": "^5.0.1",
+    "axios": "^1.5.1",
     "c8": "^8.0.0",
     "cpy-cli": "^5.0.0",
     "del-cli": "^5.0.0",
@@ -102,9 +104,5 @@
     "zod": "^3.21.4",
     "zustand": "^4.3.7",
     "zustand-hoist": "^1.0.0"
-  },
-  "dependencies": {
-    "@seamapi/types": "^1.26.2",
-    "axios": "^1.5.1"
   }
 }
