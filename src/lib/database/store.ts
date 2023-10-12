@@ -96,12 +96,16 @@ const initializer = immer<Database>((set, get) => ({
     set((state) => {
       state.manufacturers.push(manufacturer)
     })
+
+    return manufacturer
   },
 
   addDeviceModel(device_model) {
     set((state) => {
       state.device_models.push(device_model)
     })
+
+    return device_model
   },
 
   setLiveSeamConnectEndpoint(endpoint) {

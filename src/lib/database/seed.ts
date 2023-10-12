@@ -2,13 +2,12 @@ import { seam_logo } from "lib/seam_logo.ts"
 
 import type { Database } from "./schema.ts"
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface Seed {}
+export type Seed = ReturnType<typeof seedDatabase>
 
-export const seedDatabase = (db: Database): Seed => {
+export const seedDatabase = (db: Database) => {
   db.setLiveSeamConnectEndpoint(null)
 
-  db.addManufacturer({
+  const manufacturer = db.addManufacturer({
     manufacturer_id: "00000000-0000-0000-0000-000000000000",
     display_name: "Seam",
     logo: {
@@ -21,7 +20,7 @@ export const seedDatabase = (db: Database): Seed => {
     requires_seam_support_to_add_account: false,
   })
 
-  db.addDeviceModel({
+  const device_model = db.addDeviceModel({
     device_model_id: "00000000-0000-0000-0000-000000000000",
     manufacturer_id: "00000000-0000-0000-0000-000000000000",
     is_device_supported: true,
@@ -58,5 +57,8 @@ export const seedDatabase = (db: Database): Seed => {
     },
   })
 
-  return {}
+  return {
+    manufacturer,
+    device_model,
+  }
 }

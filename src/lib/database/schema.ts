@@ -13,8 +13,8 @@ export interface DatabaseState {
 export interface DatabaseMethods {
   addManufacturerFromLiveApi: (manufacturer: Manufacturer) => void
   addDeviceModelFromLiveApi: (device_model: DeviceModelV1) => void
-  addManufacturer: (manufacturer: StoredManufacturer) => void
-  addDeviceModel: (device_model: StoredDeviceModelV1) => void
+  addManufacturer: (manufacturer: StoredManufacturer) => StoredManufacturer
+  addDeviceModel: (device_model: StoredDeviceModelV1) => StoredDeviceModelV1
   setLiveSeamConnectEndpoint: (endpoint: string | null) => void
   update: (t?: number) => void
 }
