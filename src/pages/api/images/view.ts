@@ -1,3 +1,4 @@
+import axios from "axios"
 import { NotFoundException } from "nextlove"
 import { z } from "zod"
 
@@ -14,10 +15,29 @@ export default withRouteSpec({
 } as const)(async (req, res) => {
   const { image_id, _fake_live_seam_connect_endpoint } = req.query
   if (_fake_live_seam_connect_endpoint) {
-    res.redirect(
-      307,
-      `${_fake_live_seam_connect_endpoint}/internal/devicedb_image_proxy?image_id=${image_id}`,
+    const { status, headers, data } = await axios.get(
+      `${_fake_live_seam_connect_endpoint}/internal/devicedb_image_proxy`,
+      {
+        params: {
+          image_id,
+        },
+        responseType: "arraybuffer",
+        validateStatus: () => true,
+      },
     )
+
+    res.status(status)
+
+    if (headers["cache-control"]) {
+      res.setHeader("cache-control", headers["cache-control"] as string)
+    }
+
+    if (headers["content-type"]) {
+      res.setHeader("content-type", headers["content-type"] as string)
+    }
+
+    res.end(data)
+
     return
   }
 
