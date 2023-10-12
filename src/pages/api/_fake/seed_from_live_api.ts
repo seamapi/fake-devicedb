@@ -1,3 +1,4 @@
+import { routes } from "@seamapi/types/devicedb"
 import axios from "axios"
 import { z } from "zod"
 
@@ -9,7 +10,8 @@ export default withRouteSpec({
   methods: ["POST"],
   middlewares: [],
   jsonBody: z.object({
-    device_category: z.string(),
+    device_category:
+      routes["/api/v1/device_models/list"].queryParams.shape.main_category,
     vercel_protection_bypass_secret: z.string(),
     device_db_endpoint: z.string().url(),
   }),
@@ -29,7 +31,7 @@ export default withRouteSpec({
 
   await seedFromLiveApi({
     db: req.db,
-    device_category: device_category as any,
+    device_category,
     live_client,
   })
 
