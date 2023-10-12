@@ -31,11 +31,11 @@
         "operationId": "healthGet"
       }
     },
-    "/_fake/populate-from-live-api": {
+    "/_fake/seed_from_live_api": {
       "post": {
         "x-fern-sdk-group-name": ["_fake"],
-        "x-fern-sdk-method-name": "populate-from-live-api",
-        "summary": "/_fake/populate-from-live-api",
+        "x-fern-sdk-method-name": "seed_from_live_api",
+        "summary": "/_fake/seed_from_live_api",
         "responses": {
           "200": { "description": "OK" },
           "400": { "description": "Bad Request" },
@@ -61,7 +61,7 @@
           }
         },
         "tags": [],
-        "operationId": "fakePopulateFromLiveApiPost"
+        "operationId": "fakeSeedFromLiveApiPost"
       }
     },
     "/images/view": {

@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-import { populateFromLiveApi } from "lib/database/populate-from-live-api.ts"
+import { seedFromLiveApi } from "lib/database/seed-from-live-api.ts"
 import { withRouteSpec } from "lib/middleware/index.ts"
 
 export default withRouteSpec({
@@ -19,7 +19,7 @@ export default withRouteSpec({
     device_category,
   } = req.body
 
-  await populateFromLiveApi({
+  await seedFromLiveApi({
     db: req.db,
     device_category: device_category as any,
     endpoint: device_db_endpoint,

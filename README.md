@@ -18,14 +18,14 @@ Full-text search on real devicedb API (using the `?text_search` parameter) is fa
 
 ### Seeding with Data
 
-This fake can be seeded with data from the live API. To do so, either call `POST /_fake/populate-from-live-api` or use the exported helper:
+This fake can be seeded with data from the live API. To do so, either call `POST /_fake/seed_from_live_api` or use the exported helper:
 
 ```ts
-import { createDatabase, populateFromLiveApi } from "@seamapi/fake-devicedb"
+import { createDatabase, seedFromLiveApi } from "@seamapi/fake-devicedb"
 
 const db = createDatabase()
 
-await populateFromLiveApi({
+await seedFromLiveApi({
   db,
   vercel_protection_bypass_secret: "<secret>",
   endpoint: "https://devicedb.seam.tube",

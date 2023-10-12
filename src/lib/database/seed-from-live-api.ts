@@ -12,7 +12,7 @@ interface PopulateFromLiveApiOptions {
   device_category: Routes["/v1/device_models/list"]["queryParams"]["main_category"]
 }
 
-export const populateFromLiveApi = async ({
+export const seedFromLiveApi = async ({
   db,
   endpoint,
   vercel_protection_bypass_secret,
