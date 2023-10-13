@@ -7,7 +7,7 @@ import { publicMapDeviceModelV1 } from "lib/public-mappings/device-model-v1.ts"
 
 export default withRouteSpec({
   ...routes["/api/v1/device_models/get"],
-  auth: "vercel_protection_secret",
+  auth: "vercel_protection_bypass_secret",
 } as const)(async (req, res) => {
   const device_model = req.db.device_models.find(
     (model) => model.device_model_id === req.query.device_model_id,

@@ -7,7 +7,7 @@ import { publicMapManufacturer } from "lib/public-mappings/manufacturer.ts"
 export default withRouteSpec({
   ...routes["/api/v1/manufacturers/list"],
   methods: ["GET", "POST", "OPTIONS"],
-  auth: "vercel_protection_secret",
+  auth: "vercel_protection_bypass_secret",
 } as const)(async (req, res) => {
   let filtered_manufacturers = [...req.db.manufacturers]
 

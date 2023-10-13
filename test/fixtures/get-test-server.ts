@@ -42,7 +42,7 @@ export const getTestServer = async <TSeed extends boolean>(
   })
 
   fixture.axios.defaults.headers.common["x-vercel-protection-bypass"] =
-    db.vercel_protection_secret
+    db.vercel_protection_bypass_secret
 
   return {
     ...fixture,

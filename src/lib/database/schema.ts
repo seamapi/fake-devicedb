@@ -5,7 +5,7 @@ import type { StoredDeviceModelV1, StoredManufacturer } from "lib/models.ts"
 export interface DatabaseState {
   manufacturers: StoredManufacturer[]
   device_models: StoredDeviceModelV1[]
-  vercel_protection_secret: string
+  vercel_protection_bypass_secret: string
   external_image_proxy_endpoint: string | null
 }
 

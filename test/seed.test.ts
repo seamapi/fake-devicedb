@@ -77,7 +77,7 @@ test("seed database from api", async (t) => {
   const client = axios.create({
     baseURL: serverURL,
     headers: {
-      "x-vercel-protection-bypass": db.vercel_protection_secret,
+      "x-vercel-protection-bypass": db.vercel_protection_bypass_secret,
     },
   })
 

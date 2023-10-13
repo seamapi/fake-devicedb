@@ -83,7 +83,7 @@
           "400": { "description": "Bad Request" },
           "401": { "description": "Unauthorized" }
         },
-        "security": [{ "vercel_protection_secret": [] }],
+        "security": [{ "vercel_protection_bypass_secret": [] }],
         "parameters": [
           {
             "name": "image_id",
@@ -478,7 +478,7 @@
           "400": { "description": "Bad Request" },
           "401": { "description": "Unauthorized" }
         },
-        "security": [{ "vercel_protection_secret": [] }],
+        "security": [{ "vercel_protection_bypass_secret": [] }],
         "parameters": [
           {
             "name": "device_model_id",
@@ -871,7 +871,7 @@
           "400": { "description": "Bad Request" },
           "401": { "description": "Unauthorized" }
         },
-        "security": [{ "vercel_protection_secret": [] }],
+        "security": [{ "vercel_protection_bypass_secret": [] }],
         "parameters": [
           {
             "name": "device_model_id",
@@ -1273,7 +1273,7 @@
           "400": { "description": "Bad Request" },
           "401": { "description": "Unauthorized" }
         },
-        "security": [{ "vercel_protection_secret": [] }],
+        "security": [{ "vercel_protection_bypass_secret": [] }],
         "parameters": [
           {
             "name": "main_category",
@@ -1709,7 +1709,7 @@
           "400": { "description": "Bad Request" },
           "401": { "description": "Unauthorized" }
         },
-        "security": [{ "vercel_protection_secret": [] }],
+        "security": [{ "vercel_protection_bypass_secret": [] }],
         "parameters": [
           {
             "name": "main_category",
@@ -2144,7 +2144,7 @@
           "400": { "description": "Bad Request" },
           "401": { "description": "Unauthorized" }
         },
-        "security": [{ "vercel_protection_secret": [] }],
+        "security": [{ "vercel_protection_bypass_secret": [] }],
         "parameters": [
           {
             "name": "main_category",
@@ -2254,7 +2254,7 @@
           "400": { "description": "Bad Request" },
           "401": { "description": "Unauthorized" }
         },
-        "security": [{ "vercel_protection_secret": [] }],
+        "security": [{ "vercel_protection_bypass_secret": [] }],
         "parameters": [
           {
             "name": "manufacturer_id",
@@ -2328,7 +2328,7 @@
           "400": { "description": "Bad Request" },
           "401": { "description": "Unauthorized" }
         },
-        "security": [{ "vercel_protection_secret": [] }],
+        "security": [{ "vercel_protection_bypass_secret": [] }],
         "parameters": [
           {
             "name": "manufacturer_id",
@@ -2401,7 +2401,7 @@
           "400": { "description": "Bad Request" },
           "401": { "description": "Unauthorized" }
         },
-        "security": [{ "vercel_protection_secret": [] }],
+        "security": [{ "vercel_protection_bypass_secret": [] }],
         "parameters": [
           {
             "name": "manufacturer_id",
@@ -2479,7 +2479,7 @@
           "400": { "description": "Bad Request" },
           "401": { "description": "Unauthorized" }
         },
-        "security": [{ "vercel_protection_secret": [] }],
+        "security": [{ "vercel_protection_bypass_secret": [] }],
         "parameters": [
           {
             "name": "integration_status",
@@ -2558,7 +2558,7 @@
           "400": { "description": "Bad Request" },
           "401": { "description": "Unauthorized" }
         },
-        "security": [{ "vercel_protection_secret": [] }],
+        "security": [{ "vercel_protection_bypass_secret": [] }],
         "parameters": [
           {
             "name": "integration_status",
@@ -2636,7 +2636,7 @@
           "400": { "description": "Bad Request" },
           "401": { "description": "Unauthorized" }
         },
-        "security": [{ "vercel_protection_secret": [] }],
+        "security": [{ "vercel_protection_bypass_secret": [] }],
         "parameters": [
           {
             "name": "integration_status",
@@ -2653,7 +2653,9 @@
     }
   },
   "components": {
-    "securitySchemes": { "vercel_protection_secret": { "type": "apiKey" } },
+    "securitySchemes": {
+      "vercel_protection_bypass_secret": { "type": "apiKey" }
+    },
     "schemas": {}
   }
 }

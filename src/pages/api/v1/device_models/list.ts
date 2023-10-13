@@ -7,7 +7,7 @@ import { publicMapDeviceModelV1 } from "lib/public-mappings/device-model-v1.ts"
 export default withRouteSpec({
   ...routes["/api/v1/device_models/list"],
   methods: ["GET", "POST", "OPTIONS"],
-  auth: "vercel_protection_secret",
+  auth: "vercel_protection_bypass_secret",
 } as const)(async (req, res) => {
   let filtered_device_models = [...req.db.device_models]
 

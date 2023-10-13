@@ -11,7 +11,7 @@ export const createDatabase = (): ZustandDatabase => {
 const initializer = immer<Database>((set) => ({
   manufacturers: [],
   device_models: [],
-  vercel_protection_secret: "abc123",
+  vercel_protection_bypass_secret: "abc123",
   external_image_proxy_endpoint:
     "https://connect.getseam.com/internal/devicedb_image_proxy",
 
