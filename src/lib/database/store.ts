@@ -25,7 +25,7 @@ const initializer = immer<Database>((set, get) => ({
   external_image_proxy_endpoint:
     "https://connect.getseam.com/internal/devicedb_image_proxy",
 
-  addManufacturerFromLiveApi(manufacturer) {
+  addManufacturerFromApi(manufacturer) {
     const { logo, ...rest } = manufacturer
 
     if (
@@ -50,7 +50,7 @@ const initializer = immer<Database>((set, get) => ({
     })
   },
 
-  addDeviceModelFromLiveApi(device_model) {
+  addDeviceModelFromApi(device_model) {
     const { aesthetic_variants, manufacturer, ...rest } = device_model
 
     if (
@@ -61,7 +61,7 @@ const initializer = immer<Database>((set, get) => ({
       return
     }
 
-    get().addManufacturerFromLiveApi(manufacturer)
+    get().addManufacturerFromApi(manufacturer)
 
     set((state) => {
       state.device_models.push({

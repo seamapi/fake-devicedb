@@ -1,6 +1,6 @@
 export type Routes = {
-  "/_fake/seed_from_live_api": {
-    route: "/_fake/seed_from_live_api"
+  "/_fake/seed_from_api": {
+    route: "/_fake/seed_from_api"
     method: "POST"
     queryParams: {}
     jsonBody: {

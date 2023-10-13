@@ -1,4 +1,5 @@
 export * from "./schema.ts"
 export * from "./seed.ts"
+export * from "./seed-from-api.ts"
 export * from "./singleton.ts"
 export * from "./store.ts"

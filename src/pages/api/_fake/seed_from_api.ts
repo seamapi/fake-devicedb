@@ -2,7 +2,7 @@ import { routes } from "@seamapi/types/devicedb"
 import axios from "axios"
 import { z } from "zod"
 
-import { seedFromLiveApi } from "lib/database/seed-from-live-api.ts"
+import { seedDatabaseFromApi } from "lib/database/index.ts"
 import { withRouteSpec } from "lib/middleware/index.ts"
 
 export default withRouteSpec({
@@ -22,14 +22,14 @@ export default withRouteSpec({
     device_category,
   } = req.body
 
-  const live_client = axios.create({
+  const client = axios.create({
     baseURL: device_db_endpoint,
     headers: {
       "x-vercel-protection-bypass": vercel_protection_bypass_secret,
     },
   })
 
-  await seedFromLiveApi(req.db, live_client, {
+  await seedDatabaseFromApi(req.db, client, {
     device_category,
   })
 
