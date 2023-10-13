@@ -6,7 +6,7 @@ import { withRouteSpec } from "lib/middleware/index.ts"
 import { seam_logo } from "lib/seam_logo.ts"
 
 export default withRouteSpec({
-  auth: "vercel_protection_secret",
+  auth: "vercel_protection_bypass_secret",
   methods: ["GET"],
   queryParams: z.object({
     image_id: z.string().uuid(),
