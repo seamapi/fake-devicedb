@@ -18,23 +18,22 @@ Full-text search on real devicedb API (using the `?text_search` parameter) is fa
 
 ### Seeding with Data
 
-This fake can be seeded with data from the live API. To do so, either call `POST /_fake/seed_from_live_api` or use the exported helper:
+This fake can be seeded with data from the API. To do so, either call `POST /_fake/seed_from_api` or use the exported helper:
 
 ```ts
 import axios from "axios"
-import { createDatabase, seedFromLiveApi } from "@seamapi/fake-devicedb"
+import { createFake, seedDatabaseFromApi } from "@seamapi/fake-devicedb"
 
-const db = createDatabase()
+const fake = createFake()
 
-// You could create a client that goes through the Seam Connect devicedb proxy instead
-const live_client = axios.create({
+const client = axios.create({
   baseURL: "https://devicedb.seam.tube",
   headers: {
     "x-vercel-protection-bypass": "<secret>",
   },
 })
 
-await seedFromLiveApi(db, live_client)
+await seedDatabaseFromApi(fake.database, client)
 ```
 
 ### Images
