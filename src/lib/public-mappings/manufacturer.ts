@@ -7,13 +7,11 @@ import { publicMapImageReference } from "./image-reference.ts"
 interface PublicMapManufacturerOptions {
   manufacturer: StoredManufacturer
   fake_devicedb_base_url: string
-  external_image_proxy_endpoint?: string
 }
 
 export const publicMapManufacturer = ({
   manufacturer,
   fake_devicedb_base_url,
-  external_image_proxy_endpoint,
 }: PublicMapManufacturerOptions): Manufacturer => ({
   manufacturer_id: manufacturer.manufacturer_id,
   display_name: manufacturer.display_name,
@@ -21,7 +19,6 @@ export const publicMapManufacturer = ({
     ? publicMapImageReference({
         image: manufacturer.logo,
         fake_devicedb_base_url,
-        external_image_proxy_endpoint,
       })
     : undefined,
   integration: manufacturer.integration,

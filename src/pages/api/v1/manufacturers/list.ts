@@ -25,8 +25,6 @@ export default withRouteSpec({
       return publicMapManufacturer({
         manufacturer,
         fake_devicedb_base_url,
-        external_image_proxy_endpoint:
-          req.db.external_image_proxy_endpoint ?? undefined,
       })
     }),
   })

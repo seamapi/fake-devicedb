@@ -90,12 +90,6 @@
             "in": "query",
             "schema": { "type": "string", "format": "uuid" },
             "required": true
-          },
-          {
-            "name": "_fake_external_image_proxy_endpoint",
-            "in": "query",
-            "schema": { "type": "string", "format": "uri" },
-            "required": false
           }
         ],
         "tags": [],

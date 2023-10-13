@@ -38,7 +38,6 @@ export type Routes = {
     method: "GET"
     queryParams: {
       image_id: string
-      _fake_external_image_proxy_endpoint?: string | undefined
     }
     jsonBody: {}
     commonParams: {}
