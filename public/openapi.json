@@ -2653,7 +2653,9 @@
     }
   },
   "components": {
-    "securitySchemes": { "vercel_protection_bypass_secret": { "type": "apiKey" } },
+    "securitySchemes": {
+      "vercel_protection_bypass_secret": { "type": "apiKey" }
+    },
     "schemas": {}
   }
 }
