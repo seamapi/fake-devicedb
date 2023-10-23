@@ -17,8 +17,7 @@ export default withRouteSpec({
   if (image_id === "00000000-0000-0000-0000-000000000000") {
     res.setHeader("content-type", "image/png")
     res.setHeader("cache-control", "public, max-age=31536000, immutable")
-    res.status(200).end(seam_logo.data)
-
+    res.status(200).end(image.data)
     return
   }
 

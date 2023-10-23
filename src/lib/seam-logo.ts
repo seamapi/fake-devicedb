@@ -3,7 +3,7 @@ const data = Buffer.from(
   "base64",
 )
 
-export const seam_logo = {
+export default {
   data,
   width: 96,
   height: 96,

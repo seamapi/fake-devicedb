@@ -1,4 +1,4 @@
-import { seam_logo } from "lib/seam_logo.ts"
+import logo from "lib/seam-logo.ts"
 
 import type { Database } from "./schema.ts"
 
@@ -12,8 +12,8 @@ export const seedDatabase = (db: Database) => {
     display_name: "Seam",
     logo: {
       image_id: "00000000-0000-0000-0000-000000000000",
-      width: seam_logo.width,
-      height: seam_logo.height,
+      width: logo.width,
+      height: logo.height,
     },
     integration: "stable",
     is_connect_webview_supported: true,
@@ -36,8 +36,8 @@ export const seedDatabase = (db: Database) => {
         manufacturer_sku: "123456",
         front_image: {
           image_id: "00000000-0000-0000-0000-000000000000",
-          width: seam_logo.width,
-          height: seam_logo.height,
+          width: logo.width,
+          height: logo.height,
         },
         images: [],
       },

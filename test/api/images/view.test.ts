@@ -2,7 +2,7 @@ import test, { type ExecutionContext } from "ava"
 import getPixels from "get-pixels"
 
 import { getTestServer } from "fixtures/get-test-server.ts"
-import { seam_logo } from "lib/seam_logo.ts"
+import image from "lib/seam-logo.ts"
 
 test("GET /images/view", async (t: ExecutionContext) => {
   const { axios } = await getTestServer(t)
