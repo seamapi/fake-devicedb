@@ -96,6 +96,480 @@
         "operationId": "imagesViewGet"
       }
     },
+    "/v1/manufacturers/get": {
+      "options": {
+        "x-fern-ignore": true,
+        "summary": "/v1/manufacturers/get",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "manufacturer": {
+                      "type": "object",
+                      "properties": {
+                        "manufacturer_id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "display_name": { "type": "string" },
+                        "logo": {
+                          "type": "object",
+                          "properties": {
+                            "url": { "type": "string", "format": "uri" },
+                            "width": { "type": "number" },
+                            "height": { "type": "number" }
+                          },
+                          "required": ["url", "width", "height"]
+                        },
+                        "integration": {
+                          "type": "string",
+                          "enum": [
+                            "stable",
+                            "beta",
+                            "planned",
+                            "unsupported",
+                            "inquire"
+                          ]
+                        },
+                        "is_connect_webview_supported": { "type": "boolean" },
+                        "requires_seam_support_to_add_account": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "manufacturer_id",
+                        "display_name",
+                        "integration",
+                        "is_connect_webview_supported",
+                        "requires_seam_support_to_add_account"
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["manufacturer", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "vercel_protection_bypass_secret": [] }],
+        "parameters": [
+          {
+            "name": "manufacturer_id",
+            "in": "query",
+            "schema": { "type": "string", "format": "uuid" },
+            "required": true
+          }
+        ],
+        "tags": [],
+        "operationId": "v1ManufacturersGetOptions"
+      },
+      "post": {
+        "x-fern-sdk-group-name": ["v1", "manufacturers"],
+        "x-fern-sdk-method-name": "get",
+        "summary": "/v1/manufacturers/get",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "manufacturer": {
+                      "type": "object",
+                      "properties": {
+                        "manufacturer_id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "display_name": { "type": "string" },
+                        "logo": {
+                          "type": "object",
+                          "properties": {
+                            "url": { "type": "string", "format": "uri" },
+                            "width": { "type": "number" },
+                            "height": { "type": "number" }
+                          },
+                          "required": ["url", "width", "height"]
+                        },
+                        "integration": {
+                          "type": "string",
+                          "enum": [
+                            "stable",
+                            "beta",
+                            "planned",
+                            "unsupported",
+                            "inquire"
+                          ]
+                        },
+                        "is_connect_webview_supported": { "type": "boolean" },
+                        "requires_seam_support_to_add_account": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "manufacturer_id",
+                        "display_name",
+                        "integration",
+                        "is_connect_webview_supported",
+                        "requires_seam_support_to_add_account"
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["manufacturer", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "vercel_protection_bypass_secret": [] }],
+        "parameters": [
+          {
+            "name": "manufacturer_id",
+            "in": "query",
+            "schema": { "type": "string", "format": "uuid" },
+            "required": true
+          }
+        ],
+        "tags": [],
+        "operationId": "v1ManufacturersGetPost"
+      },
+      "get": {
+        "x-fern-ignore": true,
+        "summary": "/v1/manufacturers/get",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "manufacturer": {
+                      "type": "object",
+                      "properties": {
+                        "manufacturer_id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "display_name": { "type": "string" },
+                        "logo": {
+                          "type": "object",
+                          "properties": {
+                            "url": { "type": "string", "format": "uri" },
+                            "width": { "type": "number" },
+                            "height": { "type": "number" }
+                          },
+                          "required": ["url", "width", "height"]
+                        },
+                        "integration": {
+                          "type": "string",
+                          "enum": [
+                            "stable",
+                            "beta",
+                            "planned",
+                            "unsupported",
+                            "inquire"
+                          ]
+                        },
+                        "is_connect_webview_supported": { "type": "boolean" },
+                        "requires_seam_support_to_add_account": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "manufacturer_id",
+                        "display_name",
+                        "integration",
+                        "is_connect_webview_supported",
+                        "requires_seam_support_to_add_account"
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["manufacturer", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "vercel_protection_bypass_secret": [] }],
+        "parameters": [
+          {
+            "name": "manufacturer_id",
+            "in": "query",
+            "schema": { "type": "string", "format": "uuid" },
+            "required": true
+          }
+        ],
+        "tags": [],
+        "operationId": "v1ManufacturersGetGet"
+      }
+    },
+    "/v1/manufacturers/list": {
+      "options": {
+        "x-fern-ignore": true,
+        "summary": "/v1/manufacturers/list",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "manufacturers": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "manufacturer_id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "display_name": { "type": "string" },
+                          "logo": {
+                            "type": "object",
+                            "properties": {
+                              "url": { "type": "string", "format": "uri" },
+                              "width": { "type": "number" },
+                              "height": { "type": "number" }
+                            },
+                            "required": ["url", "width", "height"]
+                          },
+                          "integration": {
+                            "type": "string",
+                            "enum": [
+                              "stable",
+                              "beta",
+                              "planned",
+                              "unsupported",
+                              "inquire"
+                            ]
+                          },
+                          "is_connect_webview_supported": { "type": "boolean" },
+                          "requires_seam_support_to_add_account": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "manufacturer_id",
+                          "display_name",
+                          "integration",
+                          "is_connect_webview_supported",
+                          "requires_seam_support_to_add_account"
+                        ]
+                      }
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["manufacturers", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "vercel_protection_bypass_secret": [] }],
+        "parameters": [
+          {
+            "name": "integration_status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["stable", "beta", "planned", "unsupported", "inquire"]
+            }
+          },
+          {
+            "name": "liqe_query",
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "tags": [],
+        "operationId": "v1ManufacturersListOptions"
+      },
+      "post": {
+        "x-fern-sdk-group-name": ["v1", "manufacturers"],
+        "x-fern-sdk-method-name": "list",
+        "summary": "/v1/manufacturers/list",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "manufacturers": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "manufacturer_id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "display_name": { "type": "string" },
+                          "logo": {
+                            "type": "object",
+                            "properties": {
+                              "url": { "type": "string", "format": "uri" },
+                              "width": { "type": "number" },
+                              "height": { "type": "number" }
+                            },
+                            "required": ["url", "width", "height"]
+                          },
+                          "integration": {
+                            "type": "string",
+                            "enum": [
+                              "stable",
+                              "beta",
+                              "planned",
+                              "unsupported",
+                              "inquire"
+                            ]
+                          },
+                          "is_connect_webview_supported": { "type": "boolean" },
+                          "requires_seam_support_to_add_account": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "manufacturer_id",
+                          "display_name",
+                          "integration",
+                          "is_connect_webview_supported",
+                          "requires_seam_support_to_add_account"
+                        ]
+                      }
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["manufacturers", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "vercel_protection_bypass_secret": [] }],
+        "parameters": [
+          {
+            "name": "integration_status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["stable", "beta", "planned", "unsupported", "inquire"]
+            }
+          },
+          {
+            "name": "liqe_query",
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "tags": [],
+        "operationId": "v1ManufacturersListPost"
+      },
+      "get": {
+        "x-fern-ignore": true,
+        "summary": "/v1/manufacturers/list",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "manufacturers": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "manufacturer_id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "display_name": { "type": "string" },
+                          "logo": {
+                            "type": "object",
+                            "properties": {
+                              "url": { "type": "string", "format": "uri" },
+                              "width": { "type": "number" },
+                              "height": { "type": "number" }
+                            },
+                            "required": ["url", "width", "height"]
+                          },
+                          "integration": {
+                            "type": "string",
+                            "enum": [
+                              "stable",
+                              "beta",
+                              "planned",
+                              "unsupported",
+                              "inquire"
+                            ]
+                          },
+                          "is_connect_webview_supported": { "type": "boolean" },
+                          "requires_seam_support_to_add_account": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "manufacturer_id",
+                          "display_name",
+                          "integration",
+                          "is_connect_webview_supported",
+                          "requires_seam_support_to_add_account"
+                        ]
+                      }
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["manufacturers", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "vercel_protection_bypass_secret": [] }],
+        "parameters": [
+          {
+            "name": "integration_status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["stable", "beta", "planned", "unsupported", "inquire"]
+            }
+          },
+          {
+            "name": "liqe_query",
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "tags": [],
+        "operationId": "v1ManufacturersListGet"
+      }
+    },
     "/v1/device_models/get": {
       "options": {
         "x-fern-ignore": true,
@@ -2190,465 +2664,6 @@
         ],
         "tags": [],
         "operationId": "v1DeviceModelsListGet"
-      }
-    },
-    "/v1/manufacturers/get": {
-      "options": {
-        "x-fern-ignore": true,
-        "summary": "/v1/manufacturers/get",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "manufacturer": {
-                      "type": "object",
-                      "properties": {
-                        "manufacturer_id": {
-                          "type": "string",
-                          "format": "uuid"
-                        },
-                        "display_name": { "type": "string" },
-                        "logo": {
-                          "type": "object",
-                          "properties": {
-                            "url": { "type": "string", "format": "uri" },
-                            "width": { "type": "number" },
-                            "height": { "type": "number" }
-                          },
-                          "required": ["url", "width", "height"]
-                        },
-                        "integration": {
-                          "type": "string",
-                          "enum": [
-                            "stable",
-                            "beta",
-                            "planned",
-                            "unsupported",
-                            "inquire"
-                          ]
-                        },
-                        "is_connect_webview_supported": { "type": "boolean" },
-                        "requires_seam_support_to_add_account": {
-                          "type": "boolean"
-                        }
-                      },
-                      "required": [
-                        "manufacturer_id",
-                        "display_name",
-                        "integration",
-                        "is_connect_webview_supported",
-                        "requires_seam_support_to_add_account"
-                      ]
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["manufacturer", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "vercel_protection_bypass_secret": [] }],
-        "parameters": [
-          {
-            "name": "manufacturer_id",
-            "in": "query",
-            "schema": { "type": "string", "format": "uuid" },
-            "required": true
-          }
-        ],
-        "tags": [],
-        "operationId": "v1ManufacturersGetOptions"
-      },
-      "post": {
-        "x-fern-sdk-group-name": ["v1", "manufacturers"],
-        "x-fern-sdk-method-name": "get",
-        "summary": "/v1/manufacturers/get",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "manufacturer": {
-                      "type": "object",
-                      "properties": {
-                        "manufacturer_id": {
-                          "type": "string",
-                          "format": "uuid"
-                        },
-                        "display_name": { "type": "string" },
-                        "logo": {
-                          "type": "object",
-                          "properties": {
-                            "url": { "type": "string", "format": "uri" },
-                            "width": { "type": "number" },
-                            "height": { "type": "number" }
-                          },
-                          "required": ["url", "width", "height"]
-                        },
-                        "integration": {
-                          "type": "string",
-                          "enum": [
-                            "stable",
-                            "beta",
-                            "planned",
-                            "unsupported",
-                            "inquire"
-                          ]
-                        },
-                        "is_connect_webview_supported": { "type": "boolean" },
-                        "requires_seam_support_to_add_account": {
-                          "type": "boolean"
-                        }
-                      },
-                      "required": [
-                        "manufacturer_id",
-                        "display_name",
-                        "integration",
-                        "is_connect_webview_supported",
-                        "requires_seam_support_to_add_account"
-                      ]
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["manufacturer", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "vercel_protection_bypass_secret": [] }],
-        "parameters": [
-          {
-            "name": "manufacturer_id",
-            "in": "query",
-            "schema": { "type": "string", "format": "uuid" },
-            "required": true
-          }
-        ],
-        "tags": [],
-        "operationId": "v1ManufacturersGetPost"
-      },
-      "get": {
-        "x-fern-ignore": true,
-        "summary": "/v1/manufacturers/get",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "manufacturer": {
-                      "type": "object",
-                      "properties": {
-                        "manufacturer_id": {
-                          "type": "string",
-                          "format": "uuid"
-                        },
-                        "display_name": { "type": "string" },
-                        "logo": {
-                          "type": "object",
-                          "properties": {
-                            "url": { "type": "string", "format": "uri" },
-                            "width": { "type": "number" },
-                            "height": { "type": "number" }
-                          },
-                          "required": ["url", "width", "height"]
-                        },
-                        "integration": {
-                          "type": "string",
-                          "enum": [
-                            "stable",
-                            "beta",
-                            "planned",
-                            "unsupported",
-                            "inquire"
-                          ]
-                        },
-                        "is_connect_webview_supported": { "type": "boolean" },
-                        "requires_seam_support_to_add_account": {
-                          "type": "boolean"
-                        }
-                      },
-                      "required": [
-                        "manufacturer_id",
-                        "display_name",
-                        "integration",
-                        "is_connect_webview_supported",
-                        "requires_seam_support_to_add_account"
-                      ]
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["manufacturer", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "vercel_protection_bypass_secret": [] }],
-        "parameters": [
-          {
-            "name": "manufacturer_id",
-            "in": "query",
-            "schema": { "type": "string", "format": "uuid" },
-            "required": true
-          }
-        ],
-        "tags": [],
-        "operationId": "v1ManufacturersGetGet"
-      }
-    },
-    "/v1/manufacturers/list": {
-      "options": {
-        "x-fern-ignore": true,
-        "summary": "/v1/manufacturers/list",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "manufacturers": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "manufacturer_id": {
-                            "type": "string",
-                            "format": "uuid"
-                          },
-                          "display_name": { "type": "string" },
-                          "logo": {
-                            "type": "object",
-                            "properties": {
-                              "url": { "type": "string", "format": "uri" },
-                              "width": { "type": "number" },
-                              "height": { "type": "number" }
-                            },
-                            "required": ["url", "width", "height"]
-                          },
-                          "integration": {
-                            "type": "string",
-                            "enum": [
-                              "stable",
-                              "beta",
-                              "planned",
-                              "unsupported",
-                              "inquire"
-                            ]
-                          },
-                          "is_connect_webview_supported": { "type": "boolean" },
-                          "requires_seam_support_to_add_account": {
-                            "type": "boolean"
-                          }
-                        },
-                        "required": [
-                          "manufacturer_id",
-                          "display_name",
-                          "integration",
-                          "is_connect_webview_supported",
-                          "requires_seam_support_to_add_account"
-                        ]
-                      }
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["manufacturers", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "vercel_protection_bypass_secret": [] }],
-        "parameters": [
-          {
-            "name": "integration_status",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": ["stable", "beta", "planned", "unsupported", "inquire"]
-            }
-          }
-        ],
-        "tags": [],
-        "operationId": "v1ManufacturersListOptions"
-      },
-      "post": {
-        "x-fern-sdk-group-name": ["v1", "manufacturers"],
-        "x-fern-sdk-method-name": "list",
-        "summary": "/v1/manufacturers/list",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "manufacturers": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "manufacturer_id": {
-                            "type": "string",
-                            "format": "uuid"
-                          },
-                          "display_name": { "type": "string" },
-                          "logo": {
-                            "type": "object",
-                            "properties": {
-                              "url": { "type": "string", "format": "uri" },
-                              "width": { "type": "number" },
-                              "height": { "type": "number" }
-                            },
-                            "required": ["url", "width", "height"]
-                          },
-                          "integration": {
-                            "type": "string",
-                            "enum": [
-                              "stable",
-                              "beta",
-                              "planned",
-                              "unsupported",
-                              "inquire"
-                            ]
-                          },
-                          "is_connect_webview_supported": { "type": "boolean" },
-                          "requires_seam_support_to_add_account": {
-                            "type": "boolean"
-                          }
-                        },
-                        "required": [
-                          "manufacturer_id",
-                          "display_name",
-                          "integration",
-                          "is_connect_webview_supported",
-                          "requires_seam_support_to_add_account"
-                        ]
-                      }
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["manufacturers", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "vercel_protection_bypass_secret": [] }],
-        "parameters": [
-          {
-            "name": "integration_status",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": ["stable", "beta", "planned", "unsupported", "inquire"]
-            }
-          }
-        ],
-        "tags": [],
-        "operationId": "v1ManufacturersListPost"
-      },
-      "get": {
-        "x-fern-ignore": true,
-        "summary": "/v1/manufacturers/list",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "manufacturers": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "manufacturer_id": {
-                            "type": "string",
-                            "format": "uuid"
-                          },
-                          "display_name": { "type": "string" },
-                          "logo": {
-                            "type": "object",
-                            "properties": {
-                              "url": { "type": "string", "format": "uri" },
-                              "width": { "type": "number" },
-                              "height": { "type": "number" }
-                            },
-                            "required": ["url", "width", "height"]
-                          },
-                          "integration": {
-                            "type": "string",
-                            "enum": [
-                              "stable",
-                              "beta",
-                              "planned",
-                              "unsupported",
-                              "inquire"
-                            ]
-                          },
-                          "is_connect_webview_supported": { "type": "boolean" },
-                          "requires_seam_support_to_add_account": {
-                            "type": "boolean"
-                          }
-                        },
-                        "required": [
-                          "manufacturer_id",
-                          "display_name",
-                          "integration",
-                          "is_connect_webview_supported",
-                          "requires_seam_support_to_add_account"
-                        ]
-                      }
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["manufacturers", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "vercel_protection_bypass_secret": [] }],
-        "parameters": [
-          {
-            "name": "integration_status",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": ["stable", "beta", "planned", "unsupported", "inquire"]
-            }
-          }
-        ],
-        "tags": [],
-        "operationId": "v1ManufacturersListGet"
       }
     }
   },

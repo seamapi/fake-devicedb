@@ -1,4 +1,6 @@
 import { routes } from "@seamapi/types/devicedb"
+import * as liqe from "liqe"
+import { BadRequestException } from "nextlove"
 
 import { getBaseUrl } from "lib/get-base-url.ts"
 import { withRouteSpec } from "lib/middleware/index.ts"
@@ -16,6 +18,24 @@ export default withRouteSpec({
       (manufacturer) =>
         manufacturer.integration === req.query.integration_status,
     )
+  }
+
+  if (req.query.liqe_query) {
+    try {
+      filtered_manufacturers = liqe.filter(
+        liqe.parse(req.query.liqe_query),
+        filtered_manufacturers,
+      ) as typeof filtered_manufacturers
+    } catch (error) {
+      if (error instanceof liqe.SyntaxError) {
+        throw new BadRequestException({
+          type: "liqe_syntax_error",
+          message: error.message,
+        })
+      }
+
+      throw error
+    }
   }
 
   const fake_devicedb_base_url = getBaseUrl(req)
