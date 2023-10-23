@@ -350,6 +350,7 @@ export type Routes = {
       integration_status?:
         | ("stable" | "beta" | "planned" | "unsupported" | "inquire")
         | undefined
+      liqe_query?: string | undefined
     }
     jsonBody: {}
     commonParams: {}
