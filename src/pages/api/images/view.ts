@@ -1,9 +1,15 @@
-import axios from "axios"
 import { NotFoundException } from "nextlove"
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/index.ts"
-import { seam_logo } from "lib/seam_logo.ts"
+import image from "lib/seam-logo.ts"
+
+const forwardedHeaders = [
+  "content-type",
+  "etag",
+  "last-modified",
+  "cache-control",
+]
 
 export default withRouteSpec({
   auth: "vercel_protection_bypass_secret",
@@ -29,26 +35,18 @@ export default withRouteSpec({
     })
   }
 
-  const { status, headers, data } = await axios.get(
-    external_image_proxy_endpoint,
-    {
-      params: {
-        image_id,
-      },
-      responseType: "arraybuffer",
-      validateStatus: () => true,
-    },
-  )
+  const url = new URL(external_image_proxy_endpoint)
+  url.searchParams.set("image_id", image_id)
+  const proxyRes = await fetch(url)
+  const { status, headers } = proxyRes
+  const data = await proxyRes.arrayBuffer()
 
-  res.status(status)
-
-  if (headers["cache-control"]) {
-    res.setHeader("cache-control", headers["cache-control"] as string)
+  for (const key of forwardedHeaders) {
+    if (headers.has(key)) {
+      const value = headers.get(key)
+      if (typeof value === "string") res.setHeader(key, value)
+    }
   }
 
-  if (headers["content-type"]) {
-    res.setHeader("content-type", headers["content-type"] as string)
-  }
-
-  res.end(data)
+  res.status(status).end(Buffer.from(data))
 })
