@@ -1,6 +1,6 @@
 {
   "name": "@seamapi/fake-devicedb",
-  "version": "0.4.2",
+  "version": "1.0.0",
   "description": "Fake for devicedb",
   "type": "module",
   "main": "dist/index.js",
