@@ -25,6 +25,7 @@ export default withRouteSpec({
     manufacturer: publicMapManufacturer({
       manufacturer,
       fake_devicedb_base_url: getBaseUrl(req),
+      db: req.db,
     }),
   })
 })

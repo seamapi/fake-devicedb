@@ -6,6 +6,7 @@ test("GET /v1/manufacturers/list", async (t: ExecutionContext) => {
   const { axios } = await getTestServer(t)
   const { data } = await axios.get("/v1/manufacturers/list")
   t.is(data.manufacturers.length, 1)
+  t.is(data.manufacturers[0]?.device_model_count, 1)
 })
 
 test("GET /v1/manufacturers/list (filter by integration status)", async (t: ExecutionContext) => {
