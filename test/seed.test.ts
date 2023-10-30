@@ -85,6 +85,6 @@ test("seed database from api", async (t) => {
     await seedDatabaseFromApi(db, client)
   })
 
-  t.deepEqual(db.manufacturers[0], {...manufacturer, device_model_count: 1})
+  t.deepEqual(db.manufacturers[0], { ...manufacturer, device_model_count: 1 })
   t.deepEqual(db.device_models[0], device_model)
 })
