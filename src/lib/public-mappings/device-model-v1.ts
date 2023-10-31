@@ -1,4 +1,4 @@
-import type { DeviceModelV1 } from "@seamapi/types/devicedb"
+import type { DeviceModelV1, Manufacturer } from "@seamapi/types/devicedb"
 
 import type { Database } from "lib/database/index.ts"
 import type { StoredDeviceModelV1, StoredManufacturer } from "lib/models.ts"
@@ -18,34 +18,42 @@ export const publicMapDeviceModelV1 = ({
   manufacturer,
   fake_devicedb_base_url,
   db,
-}: PublicMapDeviceModelV1Options): DeviceModelV1 => ({
-  ...rest,
-  manufacturer: publicMapManufacturer({
-    manufacturer,
-    fake_devicedb_base_url,
-    db,
-  }),
-  aesthetic_variants: aesthetic_variants.map(
-    ({ images, front_image, back_image, ...rest }) => ({
-      ...rest,
-      images: images.map((image) =>
-        publicMapImageReference({
-          image,
-          fake_devicedb_base_url,
-        }),
-      ),
-      front_image: front_image
-        ? publicMapImageReference({
-            image: front_image,
-            fake_devicedb_base_url,
-          })
-        : undefined,
-      back_image: back_image
-        ? publicMapImageReference({
-            image: back_image,
-            fake_devicedb_base_url,
-          })
-        : undefined,
+}: PublicMapDeviceModelV1Options): DeviceModelV1 => {
+  const partialManufacturer: Omit<Manufacturer, "device_model_count"> & {
+    device_model_count?: number
+  } = {
+    ...publicMapManufacturer({
+      manufacturer,
+      fake_devicedb_base_url,
+      db,
     }),
-  ),
-})
+  }
+  delete partialManufacturer.device_model_count
+  return {
+    ...rest,
+    manufacturer: partialManufacturer,
+    aesthetic_variants: aesthetic_variants.map(
+      ({ images, front_image, back_image, ...rest }) => ({
+        ...rest,
+        images: images.map((image) =>
+          publicMapImageReference({
+            image,
+            fake_devicedb_base_url,
+          }),
+        ),
+        front_image: front_image
+          ? publicMapImageReference({
+              image: front_image,
+              fake_devicedb_base_url,
+            })
+          : undefined,
+        back_image: back_image
+          ? publicMapImageReference({
+              image: back_image,
+              fake_devicedb_base_url,
+            })
+          : undefined,
+      }),
+    ),
+  }
+}
