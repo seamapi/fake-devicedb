@@ -9,7 +9,7 @@ export const stored_image_reference = z.object({
 export type StoredImageReference = z.infer<typeof stored_image_reference>
 
 export const stored_manufacturer = schemas.manufacturer
-  .omit({ logo: true })
+  .omit({ device_model_count: true, logo: true })
   .merge(
     z.object({
       logo: stored_image_reference.optional(),

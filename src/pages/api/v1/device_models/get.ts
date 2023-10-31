@@ -37,6 +37,7 @@ export default withRouteSpec({
       device_model,
       manufacturer,
       fake_devicedb_base_url,
+      db: req.db,
     }),
   })
 })

@@ -2234,14 +2234,16 @@
                         "is_connect_webview_supported": { "type": "boolean" },
                         "requires_seam_support_to_add_account": {
                           "type": "boolean"
-                        }
+                        },
+                        "device_model_count": { "type": "number" }
                       },
                       "required": [
                         "manufacturer_id",
                         "display_name",
                         "integration",
                         "is_connect_webview_supported",
-                        "requires_seam_support_to_add_account"
+                        "requires_seam_support_to_add_account",
+                        "device_model_count"
                       ]
                     },
                     "ok": { "type": "boolean" }
@@ -2308,14 +2310,16 @@
                         "is_connect_webview_supported": { "type": "boolean" },
                         "requires_seam_support_to_add_account": {
                           "type": "boolean"
-                        }
+                        },
+                        "device_model_count": { "type": "number" }
                       },
                       "required": [
                         "manufacturer_id",
                         "display_name",
                         "integration",
                         "is_connect_webview_supported",
-                        "requires_seam_support_to_add_account"
+                        "requires_seam_support_to_add_account",
+                        "device_model_count"
                       ]
                     },
                     "ok": { "type": "boolean" }
@@ -2381,14 +2385,16 @@
                         "is_connect_webview_supported": { "type": "boolean" },
                         "requires_seam_support_to_add_account": {
                           "type": "boolean"
-                        }
+                        },
+                        "device_model_count": { "type": "number" }
                       },
                       "required": [
                         "manufacturer_id",
                         "display_name",
                         "integration",
                         "is_connect_webview_supported",
-                        "requires_seam_support_to_add_account"
+                        "requires_seam_support_to_add_account",
+                        "device_model_count"
                       ]
                     },
                     "ok": { "type": "boolean" }
@@ -2458,14 +2464,16 @@
                           "is_connect_webview_supported": { "type": "boolean" },
                           "requires_seam_support_to_add_account": {
                             "type": "boolean"
-                          }
+                          },
+                          "device_model_count": { "type": "number" }
                         },
                         "required": [
                           "manufacturer_id",
                           "display_name",
                           "integration",
                           "is_connect_webview_supported",
-                          "requires_seam_support_to_add_account"
+                          "requires_seam_support_to_add_account",
+                          "device_model_count"
                         ]
                       }
                     },
@@ -2542,14 +2550,16 @@
                           "is_connect_webview_supported": { "type": "boolean" },
                           "requires_seam_support_to_add_account": {
                             "type": "boolean"
-                          }
+                          },
+                          "device_model_count": { "type": "number" }
                         },
                         "required": [
                           "manufacturer_id",
                           "display_name",
                           "integration",
                           "is_connect_webview_supported",
-                          "requires_seam_support_to_add_account"
+                          "requires_seam_support_to_add_account",
+                          "device_model_count"
                         ]
                       }
                     },
@@ -2625,14 +2635,16 @@
                           "is_connect_webview_supported": { "type": "boolean" },
                           "requires_seam_support_to_add_account": {
                             "type": "boolean"
-                          }
+                          },
+                          "device_model_count": { "type": "number" }
                         },
                         "required": [
                           "manufacturer_id",
                           "display_name",
                           "integration",
                           "is_connect_webview_supported",
-                          "requires_seam_support_to_add_account"
+                          "requires_seam_support_to_add_account",
+                          "device_model_count"
                         ]
                       }
                     },

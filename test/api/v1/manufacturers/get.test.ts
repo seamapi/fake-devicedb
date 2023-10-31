@@ -15,4 +15,5 @@ test("GET /v1/manufacturers/get", async (t: ExecutionContext) => {
   })
 
   t.is(data.manufacturer.manufacturer_id, manufacturer.manufacturer_id)
+  t.is(data.manufacturer.device_model_count, 1)
 })
