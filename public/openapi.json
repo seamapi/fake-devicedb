@@ -428,7 +428,19 @@
                                 "physical_properties": {
                                   "type": "object",
                                   "properties": {
-                                    "has_camera": { "type": "boolean" }
+                                    "has_camera": { "type": "boolean" },
+                                    "has_rfid_reader": {
+                                      "default": false,
+                                      "type": "boolean"
+                                    },
+                                    "has_nfc_reader": {
+                                      "default": false,
+                                      "type": "boolean"
+                                    },
+                                    "has_wiegand_interface": {
+                                      "default": false,
+                                      "type": "boolean"
+                                    }
                                   },
                                   "required": ["has_camera"]
                                 },
@@ -439,6 +451,14 @@
                                       "type": "boolean"
                                     },
                                     "can_program_access_codes": {
+                                      "type": "boolean"
+                                    },
+                                    "can_unlock_with_face_recognition": {
+                                      "default": false,
+                                      "type": "boolean"
+                                    },
+                                    "supports_onvif": {
+                                      "default": false,
                                       "type": "boolean"
                                     }
                                   },
@@ -821,7 +841,19 @@
                                 "physical_properties": {
                                   "type": "object",
                                   "properties": {
-                                    "has_camera": { "type": "boolean" }
+                                    "has_camera": { "type": "boolean" },
+                                    "has_rfid_reader": {
+                                      "default": false,
+                                      "type": "boolean"
+                                    },
+                                    "has_nfc_reader": {
+                                      "default": false,
+                                      "type": "boolean"
+                                    },
+                                    "has_wiegand_interface": {
+                                      "default": false,
+                                      "type": "boolean"
+                                    }
                                   },
                                   "required": ["has_camera"]
                                 },
@@ -832,6 +864,14 @@
                                       "type": "boolean"
                                     },
                                     "can_program_access_codes": {
+                                      "type": "boolean"
+                                    },
+                                    "can_unlock_with_face_recognition": {
+                                      "default": false,
+                                      "type": "boolean"
+                                    },
+                                    "supports_onvif": {
+                                      "default": false,
                                       "type": "boolean"
                                     }
                                   },
@@ -1222,7 +1262,19 @@
                                   "physical_properties": {
                                     "type": "object",
                                     "properties": {
-                                      "has_camera": { "type": "boolean" }
+                                      "has_camera": { "type": "boolean" },
+                                      "has_rfid_reader": {
+                                        "default": false,
+                                        "type": "boolean"
+                                      },
+                                      "has_nfc_reader": {
+                                        "default": false,
+                                        "type": "boolean"
+                                      },
+                                      "has_wiegand_interface": {
+                                        "default": false,
+                                        "type": "boolean"
+                                      }
                                     },
                                     "required": ["has_camera"]
                                   },
@@ -1233,6 +1285,14 @@
                                         "type": "boolean"
                                       },
                                       "can_program_access_codes": {
+                                        "type": "boolean"
+                                      },
+                                      "can_unlock_with_face_recognition": {
+                                        "default": false,
+                                        "type": "boolean"
+                                      },
+                                      "supports_onvif": {
+                                        "default": false,
                                         "type": "boolean"
                                       }
                                     },
@@ -1315,6 +1375,28 @@
             "name": "text_search",
             "in": "query",
             "schema": { "type": "string" }
+          },
+          {
+            "name": "include_if",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^([a-z])[a-z_.]*[a-z]+$"
+              }
+            }
+          },
+          {
+            "name": "exclude_if",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^([a-z])[a-z_.]*[a-z]+$"
+              }
+            }
           }
         ],
         "tags": [],
@@ -1658,7 +1740,19 @@
                                   "physical_properties": {
                                     "type": "object",
                                     "properties": {
-                                      "has_camera": { "type": "boolean" }
+                                      "has_camera": { "type": "boolean" },
+                                      "has_rfid_reader": {
+                                        "default": false,
+                                        "type": "boolean"
+                                      },
+                                      "has_nfc_reader": {
+                                        "default": false,
+                                        "type": "boolean"
+                                      },
+                                      "has_wiegand_interface": {
+                                        "default": false,
+                                        "type": "boolean"
+                                      }
                                     },
                                     "required": ["has_camera"]
                                   },
@@ -1669,6 +1763,14 @@
                                         "type": "boolean"
                                       },
                                       "can_program_access_codes": {
+                                        "type": "boolean"
+                                      },
+                                      "can_unlock_with_face_recognition": {
+                                        "default": false,
+                                        "type": "boolean"
+                                      },
+                                      "supports_onvif": {
+                                        "default": false,
                                         "type": "boolean"
                                       }
                                     },
@@ -1751,6 +1853,28 @@
             "name": "text_search",
             "in": "query",
             "schema": { "type": "string" }
+          },
+          {
+            "name": "include_if",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^([a-z])[a-z_.]*[a-z]+$"
+              }
+            }
+          },
+          {
+            "name": "exclude_if",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^([a-z])[a-z_.]*[a-z]+$"
+              }
+            }
           }
         ],
         "tags": [],
@@ -2093,7 +2217,19 @@
                                   "physical_properties": {
                                     "type": "object",
                                     "properties": {
-                                      "has_camera": { "type": "boolean" }
+                                      "has_camera": { "type": "boolean" },
+                                      "has_rfid_reader": {
+                                        "default": false,
+                                        "type": "boolean"
+                                      },
+                                      "has_nfc_reader": {
+                                        "default": false,
+                                        "type": "boolean"
+                                      },
+                                      "has_wiegand_interface": {
+                                        "default": false,
+                                        "type": "boolean"
+                                      }
                                     },
                                     "required": ["has_camera"]
                                   },
@@ -2104,6 +2240,14 @@
                                         "type": "boolean"
                                       },
                                       "can_program_access_codes": {
+                                        "type": "boolean"
+                                      },
+                                      "can_unlock_with_face_recognition": {
+                                        "default": false,
+                                        "type": "boolean"
+                                      },
+                                      "supports_onvif": {
+                                        "default": false,
                                         "type": "boolean"
                                       }
                                     },
@@ -2186,6 +2330,28 @@
             "name": "text_search",
             "in": "query",
             "schema": { "type": "string" }
+          },
+          {
+            "name": "include_if",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^([a-z])[a-z_.]*[a-z]+$"
+              }
+            }
+          },
+          {
+            "name": "exclude_if",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^([a-z])[a-z_.]*[a-z]+$"
+              }
+            }
           }
         ],
         "tags": [],

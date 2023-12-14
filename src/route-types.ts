@@ -161,10 +161,15 @@ export type Routes = {
             main_category: "intercom"
             physical_properties: {
               has_camera: boolean
+              has_rfid_reader?: boolean
+              has_nfc_reader?: boolean
+              has_wiegand_interface?: boolean
             }
             software_features: {
               can_remotely_unlock: boolean
               can_program_access_codes: boolean
+              can_unlock_with_face_recognition?: boolean
+              supports_onvif?: boolean
             }
           }
         | {
@@ -193,6 +198,8 @@ export type Routes = {
         | ("stable" | "beta" | "planned" | "unsupported" | "inquire")
         | undefined
       text_search?: string | undefined
+      include_if?: string[] | undefined
+      exclude_if?: string[] | undefined
     }
     jsonBody: {}
     commonParams: {}
@@ -305,10 +312,15 @@ export type Routes = {
             main_category: "intercom"
             physical_properties: {
               has_camera: boolean
+              has_rfid_reader?: boolean
+              has_nfc_reader?: boolean
+              has_wiegand_interface?: boolean
             }
             software_features: {
               can_remotely_unlock: boolean
               can_program_access_codes: boolean
+              can_unlock_with_face_recognition?: boolean
+              supports_onvif?: boolean
             }
           }
         | {
