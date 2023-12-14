@@ -61,6 +61,9 @@ export const seedDatabaseFromApi = async (
     const { aesthetic_variants, manufacturer, ...rest } = device_model
     db.addDeviceModel({
       ...rest,
+      // @ts-expect-error: Unknown type conflict in physical_properties
+      physical_properties:
+        "physical_properties" in rest ? rest.physical_properties : undefined,
       manufacturer_id: manufacturer.manufacturer_id,
       aesthetic_variants: aesthetic_variants.map((variant) => ({
         ...variant,
