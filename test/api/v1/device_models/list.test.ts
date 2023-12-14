@@ -90,3 +90,55 @@ test("GET /v1/device_models/list (filter by text_search)", async (t) => {
   })
   t.is(data.device_models.length, 1)
 })
+
+// UPSTREAM: nextlove does not parse this as the empty array
+// https://github.com/seamapi/nextlove/issues/77#issuecomment-1786284982
+test.failing("GET /v1/device_models/list (empty include_if)", async (t) => {
+  const { axios } = await getTestServer(t)
+  const { data } = await axios.get("/v1/device_models/list", {
+    params: {
+      include_if: [],
+    },
+  })
+  t.is(data.device_models.length, 0)
+})
+
+test("GET /v1/device_models/list (filter by include_if)", async (t) => {
+  const { axios } = await getTestServer(t)
+  const { data } = await axios.get("/v1/device_models/list", {
+    params: {
+      include_if: ["software_features.can_program_access_codes"],
+    },
+  })
+  t.true(data.device_models.length > 0)
+  const device_model = data.device_models[0]
+  if (
+    device_model != null &&
+    "software_features" in device_model &&
+    "can_program_access_codes" in device_model.software_features
+  ) {
+    t.true(device_model.software_features.can_program_access_codes)
+  } else {
+    t.fail("can_program_access_codes not in device_model")
+  }
+})
+
+test("GET /v1/device_models/list (filter by exclude_if)", async (t) => {
+  const { axios } = await getTestServer(t)
+  const { data } = await axios.get("/v1/device_models/list", {
+    params: {
+      exclude_if: ["physical_properties.has_camera"],
+    },
+  })
+  t.true(data.device_models.length > 0)
+  const device_model = data.device_models[0]
+  if (
+    device_model != null &&
+    "physical_properties" in device_model &&
+    "has_camera" in device_model.physical_properties
+  ) {
+    t.false(device_model.physical_properties.has_camera)
+  } else {
+    t.fail("has_camera not in device_model")
+  }
+})

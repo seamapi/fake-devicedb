@@ -1,4 +1,5 @@
 import { routes } from "@seamapi/types/devicedb"
+import { get } from "lodash"
 
 import { getBaseUrl } from "lib/get-base-url.ts"
 import { withRouteSpec } from "lib/middleware/index.ts"
@@ -9,7 +10,32 @@ export default withRouteSpec({
   methods: ["GET", "POST", "OPTIONS"],
   auth: "vercel_protection_bypass_secret",
 } as const)(async (req, res) => {
+  const { include_if, exclude_if } = req.query
+
+  if (include_if?.length === 0) {
+    res.status(200).json({
+      device_models: [],
+    })
+    return
+  }
+
   let filtered_device_models = [...req.db.device_models]
+
+  if (include_if != null) {
+    filtered_device_models = filtered_device_models.filter((device_model) =>
+      include_if
+        .map((path) => get(device_model, path))
+        .every((v) => v === true),
+    )
+  }
+
+  if (exclude_if != null) {
+    filtered_device_models = filtered_device_models.filter((device_model) =>
+      exclude_if
+        .map((path) => get(device_model, path))
+        .every((v) => v !== true),
+    )
+  }
 
   if (req.query.main_category) {
     filtered_device_models = filtered_device_models.filter(
