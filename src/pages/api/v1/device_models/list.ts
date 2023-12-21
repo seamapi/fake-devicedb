@@ -61,7 +61,23 @@ export default withRouteSpec({
 
         if (manufacturer == null) return false
 
-        return manufacturer.integration === integration_status
+        return manufacturer.integration_support_level === integration_status
+      })
+      .filter((device_model: StoredDeviceModelV1) => {
+        const { integration_support_levels } = req.query
+        if (integration_support_levels == null) return true
+        if (integration_support_levels.length === 0) return false
+
+        const manufacturer = req.db.manufacturers.find(
+          ({ manufacturer_id }) =>
+            device_model.manufacturer_id === manufacturer_id,
+        )
+
+        if (manufacturer == null) return false
+
+        return integration_support_levels.includes(
+          manufacturer.integration_support_level,
+        )
       })
       .filter((device_model: StoredDeviceModelV1) => {
         const { text_search } = req.query

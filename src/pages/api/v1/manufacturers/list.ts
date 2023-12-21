@@ -22,9 +22,19 @@ export default withRouteSpec({
   res.status(200).json({
     manufacturers: manufacturers
       .filter((manufacturer: StoredManufacturer) => {
+        const { integration_support_levels } = req.query
+        if (integration_support_levels == null) return true
+        if (integration_support_levels.length === 0) return false
+
+        return integration_support_levels.includes(
+          manufacturer.integration_support_level,
+        )
+      })
+      .filter((manufacturer: StoredManufacturer) => {
         const { integration_status } = req.query
         if (integration_status == null) return true
-        return manufacturer.integration === integration_status
+
+        return manufacturer.integration_support_level === integration_status
       })
       .map((manufacturer: StoredManufacturer) => {
         return publicMapManufacturer({

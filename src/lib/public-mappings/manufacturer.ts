@@ -27,7 +27,8 @@ export const publicMapManufacturer = ({
   device_model_count: db.device_models.filter(
     (d) => d.manufacturer_id === manufacturer.manufacturer_id,
   ).length,
-  integration: manufacturer.integration,
+  integration: manufacturer.integration_support_level,
+  integration_support_level: manufacturer.integration_support_level,
   is_connect_webview_supported: manufacturer.is_connect_webview_supported,
   requires_seam_support_to_add_account:
     manufacturer.requires_seam_support_to_add_account,
