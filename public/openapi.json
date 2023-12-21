@@ -147,6 +147,16 @@
                                     "inquire"
                                   ]
                                 },
+                                "integration_support_level": {
+                                  "type": "string",
+                                  "enum": [
+                                    "stable",
+                                    "beta",
+                                    "planned",
+                                    "unsupported",
+                                    "inquire"
+                                  ]
+                                },
                                 "is_connect_webview_supported": {
                                   "type": "boolean"
                                 },
@@ -158,6 +168,7 @@
                                 "manufacturer_id",
                                 "display_name",
                                 "integration",
+                                "integration_support_level",
                                 "is_connect_webview_supported",
                                 "requires_seam_support_to_add_account"
                               ]
@@ -560,6 +571,16 @@
                                     "inquire"
                                   ]
                                 },
+                                "integration_support_level": {
+                                  "type": "string",
+                                  "enum": [
+                                    "stable",
+                                    "beta",
+                                    "planned",
+                                    "unsupported",
+                                    "inquire"
+                                  ]
+                                },
                                 "is_connect_webview_supported": {
                                   "type": "boolean"
                                 },
@@ -571,6 +592,7 @@
                                 "manufacturer_id",
                                 "display_name",
                                 "integration",
+                                "integration_support_level",
                                 "is_connect_webview_supported",
                                 "requires_seam_support_to_add_account"
                               ]
@@ -977,6 +999,16 @@
                                       "inquire"
                                     ]
                                   },
+                                  "integration_support_level": {
+                                    "type": "string",
+                                    "enum": [
+                                      "stable",
+                                      "beta",
+                                      "planned",
+                                      "unsupported",
+                                      "inquire"
+                                    ]
+                                  },
                                   "is_connect_webview_supported": {
                                     "type": "boolean"
                                   },
@@ -988,6 +1020,7 @@
                                   "manufacturer_id",
                                   "display_name",
                                   "integration",
+                                  "integration_support_level",
                                   "is_connect_webview_supported",
                                   "requires_seam_support_to_add_account"
                                 ]
@@ -1369,6 +1402,17 @@
             "schema": {
               "type": "string",
               "enum": ["stable", "beta", "planned", "unsupported", "inquire"]
+            }
+          },
+          {
+            "name": "integration_support_levels",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["stable", "beta", "planned", "unsupported", "inquire"]
+              }
             }
           },
           {
@@ -1455,6 +1499,16 @@
                                       "inquire"
                                     ]
                                   },
+                                  "integration_support_level": {
+                                    "type": "string",
+                                    "enum": [
+                                      "stable",
+                                      "beta",
+                                      "planned",
+                                      "unsupported",
+                                      "inquire"
+                                    ]
+                                  },
                                   "is_connect_webview_supported": {
                                     "type": "boolean"
                                   },
@@ -1466,6 +1520,7 @@
                                   "manufacturer_id",
                                   "display_name",
                                   "integration",
+                                  "integration_support_level",
                                   "is_connect_webview_supported",
                                   "requires_seam_support_to_add_account"
                                 ]
@@ -1847,6 +1902,17 @@
             "schema": {
               "type": "string",
               "enum": ["stable", "beta", "planned", "unsupported", "inquire"]
+            }
+          },
+          {
+            "name": "integration_support_levels",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["stable", "beta", "planned", "unsupported", "inquire"]
+              }
             }
           },
           {
@@ -1932,6 +1998,16 @@
                                       "inquire"
                                     ]
                                   },
+                                  "integration_support_level": {
+                                    "type": "string",
+                                    "enum": [
+                                      "stable",
+                                      "beta",
+                                      "planned",
+                                      "unsupported",
+                                      "inquire"
+                                    ]
+                                  },
                                   "is_connect_webview_supported": {
                                     "type": "boolean"
                                   },
@@ -1943,6 +2019,7 @@
                                   "manufacturer_id",
                                   "display_name",
                                   "integration",
+                                  "integration_support_level",
                                   "is_connect_webview_supported",
                                   "requires_seam_support_to_add_account"
                                 ]
@@ -2327,6 +2404,17 @@
             }
           },
           {
+            "name": "integration_support_levels",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["stable", "beta", "planned", "unsupported", "inquire"]
+              }
+            }
+          },
+          {
             "name": "text_search",
             "in": "query",
             "schema": { "type": "string" }
@@ -2397,6 +2485,16 @@
                             "inquire"
                           ]
                         },
+                        "integration_support_level": {
+                          "type": "string",
+                          "enum": [
+                            "stable",
+                            "beta",
+                            "planned",
+                            "unsupported",
+                            "inquire"
+                          ]
+                        },
                         "is_connect_webview_supported": { "type": "boolean" },
                         "requires_seam_support_to_add_account": {
                           "type": "boolean"
@@ -2407,6 +2505,7 @@
                         "manufacturer_id",
                         "display_name",
                         "integration",
+                        "integration_support_level",
                         "is_connect_webview_supported",
                         "requires_seam_support_to_add_account",
                         "device_model_count"
@@ -2473,6 +2572,16 @@
                             "inquire"
                           ]
                         },
+                        "integration_support_level": {
+                          "type": "string",
+                          "enum": [
+                            "stable",
+                            "beta",
+                            "planned",
+                            "unsupported",
+                            "inquire"
+                          ]
+                        },
                         "is_connect_webview_supported": { "type": "boolean" },
                         "requires_seam_support_to_add_account": {
                           "type": "boolean"
@@ -2483,6 +2592,7 @@
                         "manufacturer_id",
                         "display_name",
                         "integration",
+                        "integration_support_level",
                         "is_connect_webview_supported",
                         "requires_seam_support_to_add_account",
                         "device_model_count"
@@ -2548,6 +2658,16 @@
                             "inquire"
                           ]
                         },
+                        "integration_support_level": {
+                          "type": "string",
+                          "enum": [
+                            "stable",
+                            "beta",
+                            "planned",
+                            "unsupported",
+                            "inquire"
+                          ]
+                        },
                         "is_connect_webview_supported": { "type": "boolean" },
                         "requires_seam_support_to_add_account": {
                           "type": "boolean"
@@ -2558,6 +2678,7 @@
                         "manufacturer_id",
                         "display_name",
                         "integration",
+                        "integration_support_level",
                         "is_connect_webview_supported",
                         "requires_seam_support_to_add_account",
                         "device_model_count"
@@ -2627,6 +2748,16 @@
                               "inquire"
                             ]
                           },
+                          "integration_support_level": {
+                            "type": "string",
+                            "enum": [
+                              "stable",
+                              "beta",
+                              "planned",
+                              "unsupported",
+                              "inquire"
+                            ]
+                          },
                           "is_connect_webview_supported": { "type": "boolean" },
                           "requires_seam_support_to_add_account": {
                             "type": "boolean"
@@ -2637,6 +2768,7 @@
                           "manufacturer_id",
                           "display_name",
                           "integration",
+                          "integration_support_level",
                           "is_connect_webview_supported",
                           "requires_seam_support_to_add_account",
                           "device_model_count"
@@ -2661,6 +2793,17 @@
             "schema": {
               "type": "string",
               "enum": ["stable", "beta", "planned", "unsupported", "inquire"]
+            }
+          },
+          {
+            "name": "integration_support_levels",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["stable", "beta", "planned", "unsupported", "inquire"]
+              }
             }
           },
           {
@@ -2713,6 +2856,16 @@
                               "inquire"
                             ]
                           },
+                          "integration_support_level": {
+                            "type": "string",
+                            "enum": [
+                              "stable",
+                              "beta",
+                              "planned",
+                              "unsupported",
+                              "inquire"
+                            ]
+                          },
                           "is_connect_webview_supported": { "type": "boolean" },
                           "requires_seam_support_to_add_account": {
                             "type": "boolean"
@@ -2723,6 +2876,7 @@
                           "manufacturer_id",
                           "display_name",
                           "integration",
+                          "integration_support_level",
                           "is_connect_webview_supported",
                           "requires_seam_support_to_add_account",
                           "device_model_count"
@@ -2747,6 +2901,17 @@
             "schema": {
               "type": "string",
               "enum": ["stable", "beta", "planned", "unsupported", "inquire"]
+            }
+          },
+          {
+            "name": "integration_support_levels",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["stable", "beta", "planned", "unsupported", "inquire"]
+              }
             }
           },
           {
@@ -2798,6 +2963,16 @@
                               "inquire"
                             ]
                           },
+                          "integration_support_level": {
+                            "type": "string",
+                            "enum": [
+                              "stable",
+                              "beta",
+                              "planned",
+                              "unsupported",
+                              "inquire"
+                            ]
+                          },
                           "is_connect_webview_supported": { "type": "boolean" },
                           "requires_seam_support_to_add_account": {
                             "type": "boolean"
@@ -2808,6 +2983,7 @@
                           "manufacturer_id",
                           "display_name",
                           "integration",
+                          "integration_support_level",
                           "is_connect_webview_supported",
                           "requires_seam_support_to_add_account",
                           "device_model_count"
@@ -2832,6 +3008,17 @@
             "schema": {
               "type": "string",
               "enum": ["stable", "beta", "planned", "unsupported", "inquire"]
+            }
+          },
+          {
+            "name": "integration_support_levels",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["stable", "beta", "planned", "unsupported", "inquire"]
+              }
             }
           },
           {
