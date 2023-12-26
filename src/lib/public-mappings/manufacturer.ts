@@ -18,6 +18,7 @@ export const publicMapManufacturer = ({
 }: PublicMapManufacturerOptions): Manufacturer => ({
   manufacturer_id: manufacturer.manufacturer_id,
   display_name: manufacturer.display_name,
+  annotations: Object.values(manufacturer.annotations ?? []),
   logo: manufacturer.logo
     ? publicMapImageReference({
         image: manufacturer.logo,
