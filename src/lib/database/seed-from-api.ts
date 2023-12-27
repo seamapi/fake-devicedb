@@ -28,9 +28,13 @@ export const seedDatabaseFromApi = async (
 
     if (hasManufacturer) continue
 
-    const { logo, ...rest } = manufacturer
+    const { logo, annotations, ...rest } = manufacturer
     db.addManufacturer({
       ...rest,
+      annotation_map: annotations.reduce(
+        (acc, cur) => ({ ...acc, [cur.annotation_code]: cur }),
+        {},
+      ),
       logo:
         logo != null
           ? {

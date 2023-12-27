@@ -19,6 +19,12 @@ export const seedDatabase = (db: Database) => {
     integration_support_level: "stable",
     is_connect_webview_supported: true,
     requires_seam_support_to_add_account: false,
+    annotation_map: {
+      subscription_required: {
+        annotation_code: "subscription_required",
+        message: "Need to subscribe",
+      },
+    },
   })
 
   const device_model = db.addDeviceModel({
