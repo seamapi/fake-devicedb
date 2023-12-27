@@ -33,6 +33,7 @@ test("seed database from api", async (t) => {
     integration_support_level: "stable",
     is_connect_webview_supported: true,
     requires_seam_support_to_add_account: false,
+    annotation_map: {},
   })
 
   const device_model = apiDb.addDeviceModel({

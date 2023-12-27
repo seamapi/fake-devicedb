@@ -13,7 +13,7 @@ export const stored_manufacturer = schemas.manufacturer
   .merge(
     z.object({
       logo: stored_image_reference.optional(),
-      annotations: z
+      annotation_map: z
         .record(
           schemas.manufacturer_annotation_code,
           schemas.manufacturer_annotation,
