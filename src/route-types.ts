@@ -85,6 +85,9 @@ export type Routes = {
         description: string
         product_url?: string | undefined
         main_connection_type: "wifi" | "zwave" | "zigbee" | "unknown"
+        hardware: {
+          has_physical_key?: boolean | undefined
+        }
         aesthetic_variants: {
           slug: string
           display_name: string
@@ -139,6 +142,8 @@ export type Routes = {
               can_program_access_schedules: boolean
               can_program_access_codes_offline: boolean
             }
+            can_remotely_unlock?: true | undefined
+            can_program_online_access_codes?: true | undefined
           }
         | {
             main_category: "sensor"
@@ -249,6 +254,9 @@ export type Routes = {
         description: string
         product_url?: string | undefined
         main_connection_type: "wifi" | "zwave" | "zigbee" | "unknown"
+        hardware: {
+          has_physical_key?: boolean | undefined
+        }
         aesthetic_variants: {
           slug: string
           display_name: string
@@ -303,6 +311,8 @@ export type Routes = {
               can_program_access_schedules: boolean
               can_program_access_codes_offline: boolean
             }
+            can_remotely_unlock?: true | undefined
+            can_program_online_access_codes?: true | undefined
           }
         | {
             main_category: "sensor"

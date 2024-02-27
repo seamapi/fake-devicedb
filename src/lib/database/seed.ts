@@ -51,6 +51,11 @@ export const seedDatabase = (db: Database) => {
     ],
     description: "",
     power_sources: ["battery"],
+    can_remotely_unlock: true,
+    can_program_online_access_codes: true,
+    hardware: {
+      has_physical_key: true,
+    },
     physical_properties: {
       lock_type: "deadbolt",
       has_camera: false,

@@ -66,11 +66,11 @@
   "optionalDependencies": {
     "zod": "^3.21.4",
     "zustand": "^4.3.7",
-    "zustand-hoist": "^1.0.0"
+    "zustand-hoist": "^2.0.0"
   },
   "devDependencies": {
     "@seamapi/logger": "^1.9.2",
-    "@seamapi/types": "^1.71.0",
+    "@seamapi/types": "^1.121.0",
     "@tsconfig/next": "^2.0.0",
     "@types/get-pixels": "^3.3.2",
     "@types/lodash": "^4.14.202",
@@ -107,6 +107,6 @@
     "typescript": "~5.1.0",
     "zod": "^3.21.4",
     "zustand": "^4.3.7",
-    "zustand-hoist": "^1.0.0"
+    "zustand-hoist": "^2.0.0"
   }
 }

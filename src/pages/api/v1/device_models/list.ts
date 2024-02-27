@@ -4,7 +4,7 @@ import { get } from "lodash"
 import { getBaseUrl } from "lib/get-base-url.ts"
 import { withRouteSpec } from "lib/middleware/index.ts"
 import type { StoredDeviceModelV1 } from "lib/models.ts"
-import { publicMapDeviceModelV1 } from "lib/public-mappings/device-model-v1.ts"
+import { publicMapDeviceModel } from "lib/public-mappings/device-model.ts"
 
 export default withRouteSpec({
   ...routes["/api/v1/device_models/list"],
@@ -100,7 +100,7 @@ export default withRouteSpec({
 
         const fake_devicedb_base_url = getBaseUrl(req)
 
-        return publicMapDeviceModelV1({
+        return publicMapDeviceModel({
           device_model,
           manufacturer,
           fake_devicedb_base_url,

@@ -3,7 +3,7 @@ import { NotFoundException } from "nextlove"
 
 import { getBaseUrl } from "lib/get-base-url.ts"
 import { withRouteSpec } from "lib/middleware/index.ts"
-import { publicMapDeviceModelV1 } from "lib/public-mappings/device-model-v1.ts"
+import { publicMapDeviceModel } from "lib/public-mappings/device-model.ts"
 
 export default withRouteSpec({
   ...routes["/api/v1/device_models/get"],
@@ -33,7 +33,7 @@ export default withRouteSpec({
   const fake_devicedb_base_url = getBaseUrl(req)
 
   res.status(200).json({
-    device_model: publicMapDeviceModelV1({
+    device_model: publicMapDeviceModel({
       device_model,
       manufacturer,
       fake_devicedb_base_url,
