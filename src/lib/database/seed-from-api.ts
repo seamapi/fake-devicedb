@@ -98,11 +98,11 @@ export const seedDatabaseFromApi = async (
 }
 
 const getImageIdFromImageUrl = (url: string): string => {
-  const search_params = new URL(url).searchParams
-  const image_id = search_params.get("image_id")
-  if (image_id) return image_id
+  const searchParams = new URL(url).searchParams
+  const imageId = searchParams.get("image_id")
+  if (imageId) return imageId
 
-  const proxied_url = search_params.get("url")
-  if (!proxied_url) throw new Error(`No image_id in "${url}"`)
-  return getImageIdFromImageUrl(proxied_url)
+  const proxiedUrl = searchParams.get("url")
+  if (!proxiedUrl) throw new Error(`No image_id in "${url}"`)
+  return getImageIdFromImageUrl(proxiedUrl)
 }
