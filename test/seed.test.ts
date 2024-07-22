@@ -92,6 +92,19 @@ test("seed database from api", async (t) => {
     await seedDatabaseFromApi(db, client)
   })
 
+  const client_with_proxied_images = axios.create({
+    baseURL: serverURL,
+    headers: {
+      "x-vercel-protection-bypass": db.vercel_protection_bypass_secret,
+      "x-forwarded-seam-base-url":
+        "https://example.com/devicedb?url=https://example.com/devicedb",
+    },
+  })
+
+  await t.notThrowsAsync(async () => {
+    await seedDatabaseFromApi(db, client_with_proxied_images)
+  })
+
   t.deepEqual(db.manufacturers[0], { ...manufacturer, device_model_count: 1 })
   t.deepEqual(db.device_models[0], device_model)
 })
