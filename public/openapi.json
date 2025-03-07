@@ -31,29 +31,6 @@
         "operationId": "healthGet"
       }
     },
-    "/images/view": {
-      "get": {
-        "x-fern-sdk-group-name": ["images"],
-        "x-fern-sdk-method-name": "view",
-        "summary": "/images/view",
-        "responses": {
-          "200": { "description": "OK" },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "vercel_protection_bypass_secret": [] }],
-        "parameters": [
-          {
-            "name": "image_id",
-            "in": "query",
-            "schema": { "type": "string", "format": "uuid" },
-            "required": true
-          }
-        ],
-        "tags": [],
-        "operationId": "imagesViewGet"
-      }
-    },
     "/_fake/seed_from_api": {
       "post": {
         "x-fern-sdk-group-name": ["_fake"],
@@ -94,6 +71,29 @@
         },
         "tags": [],
         "operationId": "fakeSeedFromApiPost"
+      }
+    },
+    "/images/view": {
+      "get": {
+        "x-fern-sdk-group-name": ["images"],
+        "x-fern-sdk-method-name": "view",
+        "summary": "/images/view",
+        "responses": {
+          "200": { "description": "OK" },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "vercel_protection_bypass_secret": [] }],
+        "parameters": [
+          {
+            "name": "image_id",
+            "in": "query",
+            "schema": { "type": "string", "format": "uuid" },
+            "required": true
+          }
+        ],
+        "tags": [],
+        "operationId": "imagesViewGet"
       }
     },
     "/v1/device_models/get": {
